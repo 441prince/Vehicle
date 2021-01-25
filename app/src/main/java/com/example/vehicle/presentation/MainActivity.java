@@ -8,8 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.vehicle.R;
-import com.example.vehicle.presentation.view.FanTabFragment;
-import com.example.vehicle.presentation.view.SeatHeaterTabFragment;
+import com.example.vehicle.presentation.view.TwoTabFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 fan.animate().rotation(fan.getRotation()+360).start();
 
                 FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framelayout,new FanTabFragment());
+                ft.replace(R.id.framelayout,new TwoTabFragment());
                 ft.commit();
 
             }
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framelayout,new SeatHeaterTabFragment());
+                ft.replace(R.id.framelayout,new TwoTabFragment());
                 ft.commit();
 
             }
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framelayout,new SeatHeaterTabFragment());
+                ft.replace(R.id.framelayout,new TwoTabFragment());
                 ft.commit();
 
             }

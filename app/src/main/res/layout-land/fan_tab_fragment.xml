@@ -7,11 +7,11 @@
     android:background="#C2C2C2">
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/dashBoardImageView"
         android:layout_width="1000dp"
         android:layout_height="688dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/imageView2"
+        app:layout_constraintLeft_toRightOf="@id/feetDirectionImageButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,14 +46,14 @@
             app:strokeColor="#C80000" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/fanImageView"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@drawable/fan" />
 
         <TextView
-            android:id="@+id/fanSpeed"
+            android:id="@+id/fanSpeedText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
@@ -82,7 +82,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/imageView"
+        android:id="@+id/faceDirectionImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="750dp"
@@ -97,13 +97,13 @@
         app:srcCompat="@drawable/up" />
 
     <ImageButton
-        android:id="@+id/imageView2"
+        android:id="@+id/feetDirectionImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="750dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/popup_button_custom_bg"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/faceDirectionImageButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
@@ -113,13 +113,13 @@
         app:srcCompat="@drawable/down" />
 
     <ImageButton
-        android:id="@+id/imageView3"
+        android:id="@+id/faceFeetDirectionImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="750dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/popup_button_custom_bg"
-        app:layout_constraintTop_toBottomOf="@id/imageView2"
+        app:layout_constraintTop_toBottomOf="@id/feetDirectionImageButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.058"
@@ -129,13 +129,13 @@
         app:srcCompat="@drawable/updown" />
 
     <ImageButton
-        android:id="@+id/imageView4"
+        android:id="@+id/faceFeetWindShieldDirectionImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="750dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/popup_button_custom_bg"
-        app:layout_constraintTop_toBottomOf="@id/imageView3"
+        app:layout_constraintTop_toBottomOf="@id/faceFeetDirectionImageButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.058"
@@ -145,7 +145,35 @@
         app:srcCompat="@drawable/updownwindshield" />
 
     <ImageButton
-        android:id="@+id/imageView8"
+        android:id="@+id/maxAcImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/popup_button_custom_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.018"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.996"
+        app:srcCompat="@drawable/maxac" />
+
+    <ImageButton
+        android:id="@+id/airCirculateImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/popup_button_custom_bg"
+        android:tint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.221"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.143"
+        app:srcCompat="@drawable/circulate" />
+
+    <ImageButton
+        android:id="@+id/bioHazardImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="150dp"
@@ -159,7 +187,7 @@
         app:srcCompat="@drawable/biohazard" />
 
     <ImageButton
-        android:id="@+id/imageView9"
+        android:id="@+id/rearFanImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="150dp"
@@ -171,33 +199,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.143"
         app:srcCompat="@drawable/rearfan" />
-
-    <ImageButton
-        android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/popup_button_custom_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.018"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.996"
-        app:srcCompat="@drawable/maxac" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
-        android:background="@drawable/popup_button_custom_bg"
-        android:tint="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.221"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.143"
-        app:srcCompat="@drawable/circulate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

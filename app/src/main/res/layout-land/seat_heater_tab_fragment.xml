@@ -6,8 +6,36 @@
     android:layout_height="match_parent"
     android:background="#C2C2C2">
 
+    <ImageView
+        android:id="@+id/dashBoardImageView"
+        android:layout_width="1188dp"
+        android:layout_height="733dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.449"
+        app:srcCompat="@drawable/seat" />
+
+    <TextView
+        android:id="@+id/SeatHeatersTextView"
+        android:layout_width="248dp"
+        android:layout_height="73dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="seat heaters"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.066" />
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/allOffButton"
         android:layout_width="140dp"
         android:layout_height="47dp"
         android:backgroundTint="#717171"
@@ -24,33 +52,6 @@
         app:layout_constraintVertical_bias="0.81"
         app:rippleColor="#d00000" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="1188dp"
-        android:layout_height="733dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.449"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.449"
-        app:srcCompat="@drawable/seat" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="248dp"
-        android:layout_height="73dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:text="seat heaters"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066" />
     <Button
         android:id="@+id/driverSeatButton"
         android:layout_width="133dp"
@@ -63,10 +64,10 @@
         app:iconTint="#F8F7F7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.418"
+        app:layout_constraintHorizontal_bias="0.419"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.776" />
+        app:layout_constraintVertical_bias="0.801" />
 
     <Button
         android:id="@+id/pillionSeatButton"
@@ -97,7 +98,7 @@
         app:layout_constraintVertical_bias="0.386" />
 
     <Button
-        android:id="@+id/fourthSeatButton2"
+        android:id="@+id/fourthSeatButton"
         android:layout_width="119dp"
         android:layout_height="51dp"
         android:background="#00FFFFFF"

@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/faceDirectionImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/tesla" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/SeatHeatersTextView"
         android:layout_width="459dp"
         android:layout_height="91dp"
         android:fontFamily="@font/montserrat"
@@ -57,7 +57,7 @@
 
 
         <TextView
-            android:id="@+id/actemp"
+            android:id="@+id/acTemperatureText"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
@@ -106,10 +106,11 @@
 
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/autoImageButton"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_custom_bg"
+                android:onClick="onClick"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -118,7 +119,7 @@
                 app:srcCompat="@drawable/autobutton" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/acImageButton"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_custom_bg"
@@ -131,7 +132,7 @@
                 app:srcCompat="@drawable/ac" />
 
             <ImageButton
-                android:id="@+id/imageButton5"
+                android:id="@+id/leftSeatImageButton"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_custom_bg"
@@ -144,7 +145,7 @@
                 app:srcCompat="@drawable/leftseat" />
 
             <ImageButton
-                android:id="@+id/imageButton6"
+                android:id="@+id/fanImageButton"
                 android:layout_width="180dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_custom_bg"
@@ -157,7 +158,7 @@
                 app:srcCompat="@drawable/mainfan" />
 
             <ImageButton
-                android:id="@+id/imageButton7"
+                android:id="@+id/rightSeatImageButton"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_custom_bg"
@@ -170,7 +171,7 @@
                 app:srcCompat="@drawable/rightseat" />
 
             <ImageButton
-                android:id="@+id/imageButton8"
+                android:id="@+id/frontDefrostImageButton"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_custom_bg"
@@ -183,7 +184,7 @@
                 app:srcCompat="@drawable/frontdefrost" />
 
             <ImageButton
-                android:id="@+id/imageButton9"
+                android:id="@+id/rearDefrostImageButton"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_custom_bg"
@@ -196,7 +197,7 @@
                 app:srcCompat="@drawable/reardefrost" />
 
             <ImageButton
-                android:id="@+id/imageButton10"
+                android:id="@+id/carImageButton"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_custom_bg"

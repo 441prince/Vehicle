@@ -33,14 +33,14 @@
             app:strokeColor="#C80000" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/fanImageView"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@drawable/fan" />
 
         <TextView
-            android:id="@+id/fanSpeed"
+            android:id="@+id/fanSpeedText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
@@ -69,7 +69,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/dashBoardImageView"
         android:layout_width="1213dp"
         android:layout_height="688dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +81,7 @@
         app:srcCompat="@drawable/dashfan" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/faceDirectionImage"
         android:layout_width="69dp"
         android:layout_height="66dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -93,7 +93,7 @@
         app:srcCompat="@drawable/up" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/feetDirectionImage"
         android:layout_width="70dp"
         android:layout_height="67dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -105,7 +105,7 @@
         app:srcCompat="@drawable/down" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/faceFeetDirectionImage"
         android:layout_width="71dp"
         android:layout_height="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -117,7 +117,7 @@
         app:srcCompat="@drawable/updown" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/faceFeetWindShieldDiectionImage"
         android:layout_width="66dp"
         android:layout_height="77dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -129,7 +129,7 @@
         app:srcCompat="@drawable/updownwindshield" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/biohazardImage"
         android:layout_width="91dp"
         android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -141,7 +141,7 @@
         app:srcCompat="@drawable/biohazard" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/rearFanImage"
         android:layout_width="67dp"
         android:layout_height="68dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -153,7 +153,7 @@
         app:srcCompat="@drawable/rearfan" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/maxAcImage"
         android:layout_width="187dp"
         android:layout_height="113dp"
         app:layout_constraintBottom_toBottomOf="parent"

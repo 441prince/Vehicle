@@ -1,6 +1,8 @@
 package com.example.vehicle.presentation.view;
+
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +11,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.vehicle.R;
 import com.example.vehicle.domain.hmidata.DatabaseHelper;
 
 
-public class FanTabFragment extends Fragment {
+public class FanTabFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -27,93 +27,182 @@ public class FanTabFragment extends Fragment {
         return view;
     }
 
-    // fan speed increasing and decreasing on "+" and "-" icon click and uploading it to database
-    Button increase,decrease;
-    ImageView fan;
-    TextView fanSpeed;
-    DatabaseHelper myDb;
-    ImageButton airUp;
-    int count=0;
-    String value;
+    private ImageButton faceDirectionImageButton;
+    private ImageButton feetDirectionImageButton;
+    private ImageButton faceFeetDirectionImageButton;
+    private ImageButton faceFeetWindShieldDirectionImageButton;
+    private ImageButton maxAcImageButton;
+    private ImageButton airCirculateImageButton;
+    private ImageButton bioHazardImageButton;
+    private ImageButton rearFanImageButton;
+    private Button increase;
+    private Button decrease;
+    private ImageView fanImageView;
+    private ImageView dashBoardImageView;
+    private TextView fanSpeedText;
+    private DatabaseHelper databaseHelper;
+    public int count=0;
+    public String ac_direction="Up",max_ac="On",air_circulate="Off",bio_hazard="On",rear_fan="Off", fan_speed;
+    public String value;
+
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        myDb=new DatabaseHelper(requireContext());
+        initViews(view);
+        initListeners();
+        initObjects();
 
-        increase=(Button) view.findViewById(R.id.increase);
-        decrease=(Button) view.findViewById(R.id.decrease);
-        fanSpeed=(TextView) view.findViewById(R.id.fanSpeed);
-        fan=(ImageView)view.findViewById(R.id.imageView6) ;
-        airUp=(ImageButton)view.findViewById(R.id.imageView);
-
-        increase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(count<7){
-                    count++;}
-
-                ImageView image = (ImageView) view.findViewById(R.id.imageView5);
-                image.setImageResource(R.drawable.dashfanon);
-                value=Integer.toString(count);
-                fanSpeed.setText( value);
-
-            }
-        });
-        decrease.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(count>0){
-                    count--;}
-                else if(count<1) {
-                    ImageView image = (ImageView) view.findViewById(R.id.imageView5);
-                    image.setImageResource(R.drawable.dashfannew);
-                    Toast.makeText(requireActivity(),"Fan Turned Off",Toast.LENGTH_SHORT).show();
-                }
-                value=Integer.toString(count);
-                fanSpeed.setText( value);
-
-            }
-        });
-
-        airUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageView image = (ImageView) view.findViewById(R.id.imageView5);
-                image.setImageResource(R.drawable.dashfanon);
-            }
-        });
-
-        AddData();
-
-        Cursor cursor= myDb.getData();
+        /*Cursor cursor= databaseHelper.getFanSpeedData();
         if (cursor.getCount()==0){
             Toast.makeText(requireContext(),"No data",Toast.LENGTH_SHORT).show();
         }
         else {
             while (cursor.moveToNext()){
-
-                fanSpeed.setText(cursor.getString(1));
-
-
+                fanSpeedText.setText(cursor.getString(6));
             }
-        }
+        }*/
 
     }
 
-    public  void AddData() {
-        fan.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean isInserted = myDb.insertData(fanSpeed.getText().toString());
-                        if(isInserted == true)
-                            Toast.makeText(requireActivity(),"Fan speed saved",Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(requireActivity(),"Data not Inserted",Toast.LENGTH_LONG).show();
-                    }
+    public  void initViews(View view){
+
+        faceDirectionImageButton = (ImageButton) view.findViewById(R.id.faceDirectionImageButton);
+        feetDirectionImageButton = (ImageButton) view.findViewById(R.id.feetDirectionImageButton);
+        faceFeetDirectionImageButton =(ImageButton) view.findViewById(R.id.faceFeetDirectionImageButton);
+        faceFeetWindShieldDirectionImageButton = (ImageButton) view.findViewById(R.id.faceFeetWindShieldDirectionImageButton);
+        maxAcImageButton = (ImageButton)  view.findViewById(R.id.maxAcImageButton);
+        airCirculateImageButton = (ImageButton) view.findViewById(R.id.airCirculateImageButton);
+        bioHazardImageButton = (ImageButton) view.findViewById(R.id.bioHazardImageButton);
+        rearFanImageButton = (ImageButton) view.findViewById(R.id.rearFanImageButton);
+        increase = (Button) view.findViewById(R.id.increase);
+        decrease = (Button) view.findViewById(R.id.decrease);
+        fanImageView = (ImageView) view.findViewById(R.id.fanImageView) ;
+        dashBoardImageView = (ImageView) view.findViewById(R.id.dashBoardImageView);
+        fanSpeedText = (TextView) view.findViewById(R.id.fanSpeedText);
+
+
+    }
+    public  void initListeners(){
+
+        this.faceDirectionImageButton.setOnClickListener(this);
+        this.feetDirectionImageButton.setOnClickListener(this);
+        this.faceFeetDirectionImageButton.setOnClickListener(this);
+        this.faceFeetWindShieldDirectionImageButton.setOnClickListener(this);
+        this.maxAcImageButton.setOnClickListener(this);
+        this.airCirculateImageButton.setOnClickListener(this);
+        this.bioHazardImageButton.setOnClickListener(this);
+        this.rearFanImageButton.setOnClickListener(this);
+        this.increase.setOnClickListener(this);
+        this.decrease.setOnClickListener(this);
+        this.fanImageView.setOnClickListener(this);
+        this.fanSpeedText.setOnClickListener(this);
+
+    }
+    public  void initObjects(){
+
+        this.databaseHelper=new DatabaseHelper(requireContext());
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.faceDirectionImageButton:
+                dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                Toast.makeText(requireActivity(), "Face Direction On", Toast.LENGTH_SHORT).show();
+             new Handler().postDelayed(new Runnable() {
+                @Override public void run() {
+                    //DashBoardImageView.setImageResource(R.drawable.dashfannew);
                 }
-        );
+            }, 1000);
+
+                return;
+
+            case R.id.feetDirectionImageButton:
+
+                Toast.makeText(requireActivity(), "Feet Direction On", Toast.LENGTH_SHORT).show();
+                return;
+
+            case R.id.faceFeetDirectionImageButton:
+
+                Toast.makeText(requireActivity(), "Face & Feet Direction On", Toast.LENGTH_SHORT).show();
+                return;
+
+            case R.id.faceFeetWindShieldDirectionImageButton:
+
+                Toast.makeText(requireActivity(), "Face, Feet, WindShield Direction On", Toast.LENGTH_SHORT).show();
+                return;
+
+            case R.id.maxAcImageButton:
+
+                Toast.makeText(requireActivity(), "Max-AC On", Toast.LENGTH_SHORT).show();
+                return;
+
+            case R.id.airCirculateImageButton:
+
+                Toast.makeText(requireActivity(), "AirCirculate On", Toast.LENGTH_SHORT).show();
+                return;
+
+            case R.id.bioHazardImageButton:
+
+                Toast.makeText(requireActivity(), "Bio-Hazard On", Toast.LENGTH_SHORT).show();
+                return;
+
+            case R.id.rearFanImageButton:
+
+                Toast.makeText(requireActivity(), "Rear Fan On", Toast.LENGTH_SHORT).show();
+                return;
+
+            case R.id.increase:
+
+                if(count<7){
+                    count++;}
+
+
+                dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                value=Integer.toString(count);
+                fanSpeedText.setText( value);
+                return;
+
+            case R.id.decrease:
+
+                if(count>0){
+                    count--;}
+                else if(count<1) {
+                    dashBoardImageView.setImageResource(R.drawable.dashfannew);
+                    Toast.makeText(requireActivity(),"Fan Turned Off",Toast.LENGTH_SHORT).show();
+                }
+                value=Integer.toString(count);
+                fanSpeedText.setText( value);
+                return;
+
+            case R.id.fanSpeedText:
+                return;
+            default:
+                return;
+        }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        boolean isInserted = databaseHelper.insertFanTabData(ac_direction,max_ac,air_circulate,bio_hazard,rear_fan,fanSpeedText.getText().toString());
+        if(isInserted==true)
+            Toast.makeText(requireActivity(),"Fan speed saved",Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(requireActivity(),"Data not Inserted",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        boolean isInserted = databaseHelper.insertFanTabData(ac_direction,max_ac,air_circulate,bio_hazard,rear_fan,fanSpeedText.getText().toString());
+        if(isInserted==true)
+            Toast.makeText(requireActivity(),"Fan speed saved",Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(requireActivity(),"Data not Inserted",Toast.LENGTH_LONG).show();
+
+    }
 }

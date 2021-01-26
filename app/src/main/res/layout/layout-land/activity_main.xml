@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".presentation.MainActivity">
+    tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -44,6 +44,49 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
         app:layout_constraintVertical_bias="0.211" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="300dp"
+        android:layout_marginRight="585dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/actemp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_temp_bg"
+            android:shadowColor="@color/black"
+            android:elevation="35dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center|center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFFFF"
+            android:textSize="10dp"
+            android:textStyle="normal"  />
+
+        <SeekBar
+            android:id="@+id/customSeekBar"
+            style="@android:style/Widget.Material.SeekBar"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:background="@drawable/seek_custom"
+            android:min="16"
+            android:max="27"
+            android:progress="24"
+            android:progressTint="@color/Blue"
+            android:thumbTint="@color/Blue" />
+
+
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_bar"
@@ -59,18 +102,14 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
 
             <ImageButton
                 android:id="@+id/imageButton3"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
-                android:backgroundTint="#00FFFFFF"
+                android:background="@drawable/button_custom_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -82,7 +121,7 @@
                 android:id="@+id/imageButton4"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
-                android:backgroundTint="#00FFFFFF"
+                android:background="@drawable/button_custom_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.15"
@@ -95,7 +134,7 @@
                 android:id="@+id/imageButton5"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
-                android:backgroundTint="#00FFFFFF"
+                android:background="@drawable/button_custom_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.324"
@@ -108,7 +147,7 @@
                 android:id="@+id/imageButton6"
                 android:layout_width="180dp"
                 android:layout_height="80dp"
-                android:backgroundTint="#00FFFFFF"
+                android:background="@drawable/button_custom_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.487"
@@ -121,7 +160,7 @@
                 android:id="@+id/imageButton7"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
-                android:backgroundTint="#00FFFFFF"
+                android:background="@drawable/button_custom_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.648"
@@ -134,7 +173,7 @@
                 android:id="@+id/imageButton8"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:backgroundTint="#00FFFFFF"
+                android:background="@drawable/button_custom_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.768"
@@ -147,7 +186,7 @@
                 android:id="@+id/imageButton9"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:backgroundTint="#00FFFFFF"
+                android:background="@drawable/button_custom_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.893"
@@ -160,14 +199,16 @@
                 android:id="@+id/imageButton10"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:backgroundTint="#00FFFFFF"
+                android:background="@drawable/button_custom_bg"
+                android:onClick="popup"
+                android:tint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/circulate" />
+                app:srcCompat="@drawable/car" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>

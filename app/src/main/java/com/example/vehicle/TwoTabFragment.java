@@ -63,7 +63,7 @@ public class TwoTabFragment extends Fragment {
     private void setUpViewPager(ViewPager viewPager) {
         PageAdapter adapter =new PageAdapter(getChildFragmentManager());
 
-        adapter.addFragment(new FanTabFragment(),"Front");
+        adapter.addFragment(new FanTabFragment(),"Fan");
         adapter.addFragment(new SeatHeaterTabFragment(),"Seat");
 
         viewPager.setAdapter(adapter);

@@ -1,4 +1,4 @@
-package com.example.vehicle.presentation.view;
+package com.example.vehicle;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.vehicle.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class TwoTabFragment extends Fragment {
@@ -61,7 +60,7 @@ public class TwoTabFragment extends Fragment {
     }
 
     private void setUpViewPager(ViewPager viewPager) {
-        PageAdapter adapter =new PageAdapter(getChildFragmentManager());
+        com.example.climate.PageAdapter adapter =new com.example.climate.PageAdapter(getChildFragmentManager());
 
         adapter.addFragment(new FanTabFragment(),"Fan");
         adapter.addFragment(new SeatHeaterTabFragment(),"Seat");

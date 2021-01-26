@@ -1,4 +1,4 @@
-package com.example.vehicle.presentation.view;
+package com.example.vehicle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

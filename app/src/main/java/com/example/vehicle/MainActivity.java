@@ -1,7 +1,8 @@
-package com.example.vehicle.presentation.view;
+package com.example.vehicle;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -14,17 +15,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 
+
 public class MainActivity extends AppCompatActivity {
     private ImageButton fan;
     private ImageButton leftSeat;
     private ImageButton rightSeat;
-    private ImageButton ac;
-    Dialog usermode;
+    private ImageButton ac,defrost,rearDefrost;
 
+    Dialog usermode;
+    DatabaseHelper myDb;
+    public int clickCount=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         usermode = new Dialog(this);
+
+        myDb=new DatabaseHelper(this);
+
         setContentView(R.layout.activity_main);
         ac=findViewById(R.id.imageButton4);
         SeekBar colorSeekBar;
@@ -81,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 fan.animate().rotation(fan.getRotation()+360).start();
 
                 FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framelayout,new com.example.climate.TwoTabFragment());
+                ft.replace(R.id.framelayout,new TwoTabFragment());
                 ft.commit();
 
             }
@@ -91,9 +98,25 @@ public class MainActivity extends AppCompatActivity {
         leftSeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framelayout,new com.example.climate.TwoTabFragment());
-                ft.commit();
+
+                ImageButton image = (ImageButton) v.findViewById(R.id.imageButton5);
+                if(clickCount==1){
+                    image.setImageResource(R.drawable.leftlow);
+                    Toast.makeText(getApplicationContext(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    image.setImageResource(R.drawable.leftmed);
+                    Toast.makeText(getApplicationContext(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==3){
+                    image.setImageResource(R.drawable.lefthigh);
+                    Toast.makeText(getApplicationContext(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==4){
+                    image.setImageResource(R.drawable.leftseat);
+                    Toast.makeText(getApplicationContext()," Heat Mode Off",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
 
             }
         });
@@ -102,13 +125,54 @@ public class MainActivity extends AppCompatActivity {
         rightSeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framelayout,new com.example.climate.TwoTabFragment());
-                ft.commit();
+
+                ImageButton image = (ImageButton) v.findViewById(R.id.imageButton7);
+                if(clickCount==1){
+                    image.setImageResource(R.drawable.rightlow);
+                    Toast.makeText(getApplicationContext(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    image.setImageResource(R.drawable.rightmed);
+                    Toast.makeText(getApplicationContext(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==3){
+                    image.setImageResource(R.drawable.righthigh);
+                    Toast.makeText(getApplicationContext(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==4){
+                    image.setImageResource(R.drawable.rightseat);
+                    Toast.makeText(getApplicationContext()," Heat Mode Off",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
 
             }
         });
 
+        //defrost mode
+        defrost=(ImageButton)findViewById(R.id.imageButton8);
+        defrost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Defrost On",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //rear defrost mode
+        rearDefrost=(ImageButton)findViewById(R.id.imageButton9);
+        rearDefrost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Rear Defrost On",Toast.LENGTH_SHORT).show();
+
+                for (int i = 0; i < 5; i++) { new Handler().postDelayed(new Runnable() {
+                    @Override public void run()
+                {Toast toast= Toast.makeText(getApplicationContext(),
+                        "Rear Defrosting.....", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.show(); } }, i * 1000);}
+
+            }
+        });
     }
     public void popup(View view){
         ImageButton dog,camp,user;
@@ -152,4 +216,6 @@ public class MainActivity extends AppCompatActivity {
         usermode.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
 
     }
+
+
 }

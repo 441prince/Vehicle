@@ -60,7 +60,7 @@ public class TwoTabFragment extends Fragment {
     }
 
     private void setUpViewPager(ViewPager viewPager) {
-        com.example.climate.PageAdapter adapter =new com.example.climate.PageAdapter(getChildFragmentManager());
+        PageAdapter adapter =new PageAdapter(getChildFragmentManager());
 
         adapter.addFragment(new FanTabFragment(),"Fan");
         adapter.addFragment(new SeatHeaterTabFragment(),"Seat");

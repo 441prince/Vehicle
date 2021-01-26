@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.climate.domain.hmidata.DatabaseHelper;
+
 
 public class FanTabFragment extends Fragment {
     @Nullable

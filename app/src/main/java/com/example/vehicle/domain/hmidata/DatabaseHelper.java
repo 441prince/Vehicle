@@ -1,4 +1,4 @@
-package com.example.vehicle;
+package com.example.vehicle.domain.hmidata;
 
 import android.content.ContentValues;
 import android.content.Context;

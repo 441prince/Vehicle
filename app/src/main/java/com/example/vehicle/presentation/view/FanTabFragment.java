@@ -1,4 +1,4 @@
-package com.example.vehicle;
+package com.example.vehicle.presentation.view;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.vehicle.R;
+import com.example.vehicle.domain.hmidata.DatabaseHelper;
 
 
 public class FanTabFragment extends Fragment {

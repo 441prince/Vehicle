@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.vehicle.domain.hmidata.DatabaseHelper;
+import com.example.vehicle.presentation.view.TwoTabFragment;
 
 
 public class MainActivity extends AppCompatActivity {

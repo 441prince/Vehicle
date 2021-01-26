@@ -1,4 +1,4 @@
-package com.example.vehicle;
+package com.example.vehicle.presentation.view;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.vehicle.R;
 
 public class SeatHeaterTabFragment extends Fragment {
     @Nullable

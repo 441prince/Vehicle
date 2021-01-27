@@ -44,6 +44,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
     public int count=0;
     public String ac_direction="Off",max_ac="Off",air_circulate="Off",bio_hazard="Off",rear_fan="Off", fan_speed;
     public String value;
+    public int clickCount=1;
 
 
     @Override
@@ -114,9 +115,22 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.faceDirectionImageButton:
-                dashBoardImageView.setImageResource(R.drawable.dashfanon);
+
                 getAcDirection();
-                Toast.makeText(requireActivity(), "Face Direction On", Toast.LENGTH_SHORT).show();
+                if(clickCount==1){
+
+                    faceDirectionImageButton.setImageResource(R.drawable.upon);
+                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    Toast.makeText(requireActivity(),"Face Direction On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    faceDirectionImageButton.setImageResource(R.drawable.up);
+                    dashBoardImageView.setImageResource(R.drawable.dashfan);
+                    Toast.makeText(requireActivity(),"Face Direction Off",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
+
+                Toast.makeText(requireActivity(), "", Toast.LENGTH_SHORT).show();
              new Handler().postDelayed(new Runnable() {
                 @Override public void run() {
                     //DashBoardImageView.setImageResource(R.drawable.dashfannew);
@@ -128,19 +142,55 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
             case R.id.feetDirectionImageButton:
 
                 getAcDirection();
-                Toast.makeText(requireActivity(), "Feet Direction On", Toast.LENGTH_SHORT).show();
+                if(clickCount==1){
+
+                    feetDirectionImageButton.setImageResource(R.drawable.downon);
+                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    Toast.makeText(requireActivity(),"Feet Direction On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    feetDirectionImageButton.setImageResource(R.drawable.down);
+                    dashBoardImageView.setImageResource(R.drawable.dashfan);
+                    Toast.makeText(requireActivity(),"Feet Direction Off",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
+
                 return;
 
             case R.id.faceFeetDirectionImageButton:
 
                 getAcDirection();
-                Toast.makeText(requireActivity(), "Face & Feet Direction On", Toast.LENGTH_SHORT).show();
+                if(clickCount==1){
+
+                    faceFeetDirectionImageButton.setImageResource(R.drawable.updownon);
+                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    Toast.makeText(requireActivity(),"Face & Feet Direction On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
+                    dashBoardImageView.setImageResource(R.drawable.dashfan);
+                    Toast.makeText(requireActivity(),"Face & Feet Direction Off",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
+
                 return;
 
             case R.id.faceFeetWindShieldDirectionImageButton:
 
                 getAcDirection();
-                Toast.makeText(requireActivity(), "Face, Feet, WindShield Direction On", Toast.LENGTH_SHORT).show();
+                if(clickCount==1){
+
+                    faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshieldon);
+                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
+                    dashBoardImageView.setImageResource(R.drawable.dashfan);
+                    Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction On",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
+
                 return;
 
             case R.id.maxAcImageButton:
@@ -148,7 +198,20 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(maxAcImageButton.isEnabled()){
                     max_ac="On";
                 }
-                Toast.makeText(requireActivity(), "Max-AC On", Toast.LENGTH_SHORT).show();
+
+
+
+                if(clickCount==1){
+
+                    maxAcImageButton.setImageResource(R.drawable.maxacon);
+                    Toast.makeText(requireActivity(),"Max-AC On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    maxAcImageButton.setImageResource(R.drawable.maxac);
+                    Toast.makeText(requireActivity(),"Max-AC Off",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
+
                 return;
 
             case R.id.airCirculateImageButton:
@@ -156,7 +219,21 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(airCirculateImageButton.isEnabled()){
                     air_circulate="On";
                 }
-                Toast.makeText(requireActivity(), "AirCirculate On", Toast.LENGTH_SHORT).show();
+
+
+
+
+                if(clickCount==1){
+
+                    airCirculateImageButton.setImageResource(R.drawable.circulateon);
+                    Toast.makeText(requireActivity(),"AirCirculate On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    airCirculateImageButton.setImageResource(R.drawable.circulate);
+                    Toast.makeText(requireActivity(),"AirCirculate Off",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
+
                 return;
 
             case R.id.bioHazardImageButton:
@@ -164,7 +241,20 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(bioHazardImageButton.isEnabled()){
                     bio_hazard="On";
                 }
-                Toast.makeText(requireActivity(), "Bio-Hazard On", Toast.LENGTH_SHORT).show();
+
+
+
+                if(clickCount==1){
+
+                    bioHazardImageButton.setImageResource(R.drawable.biohazardon);
+                    Toast.makeText(requireActivity(),"Bio-Hazard On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    bioHazardImageButton.setImageResource(R.drawable.biohazard);
+                    Toast.makeText(requireActivity(),"Bio-Hazard Off",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
+
                 return;
 
             case R.id.rearFanImageButton:
@@ -172,7 +262,20 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(rearFanImageButton.isEnabled()){
                     rear_fan="On";
                 }
-                Toast.makeText(requireActivity(), "Rear Fan On", Toast.LENGTH_SHORT).show();
+
+
+
+                if(clickCount==1){
+
+                    rearFanImageButton.setImageResource(R.drawable.rearfanchange);
+                    Toast.makeText(requireActivity(),"Rear Fan On",Toast.LENGTH_SHORT).show();
+                    clickCount++;
+                }else if(clickCount==2){
+                    rearFanImageButton.setImageResource(R.drawable.rearfan);
+                    Toast.makeText(requireActivity(),"Rear Fan Off",Toast.LENGTH_SHORT).show();
+                    clickCount=1;
+                }
+
                 return;
 
             case R.id.increase:
@@ -190,7 +293,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
 
                 if(count>0){
                     count--;}
-                else if(count<1) {
+                else if(count==0) {
                     dashBoardImageView.setImageResource(R.drawable.dashfannew);
                     Toast.makeText(requireActivity(),"Fan Turned Off",Toast.LENGTH_SHORT).show();
                 }

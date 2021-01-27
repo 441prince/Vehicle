@@ -56,7 +56,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
         getOnAcDirection();
         getOffAcDirection();
 
-        Cursor cursor= databaseHelper.getFanSpeedData();
+        Cursor cursor= databaseHelper.getFanTabData();
         if (cursor.getCount()==0){
             Toast.makeText(requireContext(),"No data",Toast.LENGTH_SHORT).show();
         }
@@ -333,7 +333,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
         super.onStop();
         boolean isInserted = databaseHelper.insertFanTabData(ac_direction,max_ac,air_circulate,bio_hazard,rear_fan,fanSpeedText.getText().toString());
         if(isInserted==true)
-            Toast.makeText(requireActivity(),"Fan speed saved",Toast.LENGTH_LONG).show();
+            Toast.makeText(requireActivity(),"Fan Tab Data saved",Toast.LENGTH_LONG).show();
         else
             Toast.makeText(requireActivity(),"Data not Inserted",Toast.LENGTH_LONG).show();
 

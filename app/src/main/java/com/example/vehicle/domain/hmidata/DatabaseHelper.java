@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_REAR_FAN = "rear_fan";
     private static final String COLUMN_FAN_SPEED = "fan_speed";
 
-    public static final String TABLE_NAME2 ="seat_tab_data_table";
+    public static final String TABLE_NAME2 ="seat";
     private static final String COLUMN_DRIVER_SEAT = "driver_seat";
     private static final String COLUMN_PILLION_SEAT = "pillion_seat";
     private static final String COLUMN_THIRD_SEAT = "third_seat";
@@ -109,16 +109,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
-    public boolean insertSeatTabData(String driver_seat,String pillion_seat,String third_seat, String fourth_seat, String fifth_seat){
+    public boolean insertSeatTabData(String driver_seat, String pillion_seat ,String third_seat, String fourth_seat, String fifth_seat)
+    {
 
         SQLiteDatabase db=this.getWritableDatabase();
-        ContentValues values=new ContentValues();
-        values.put(COLUMN_DRIVER_SEAT,driver_seat);
-        values.put(COLUMN_PILLION_SEAT ,pillion_seat);
-        values.put(COLUMN_THIRD_SEAT,third_seat);
-        values.put(COLUMN_FOURTH_SEAT ,fourth_seat);
-        values.put(COLUMN_FIFTH_SEAT,fifth_seat);
-        long inserted=db.insert(TABLE_NAME2, null, values);
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(COLUMN_DRIVER_SEAT,driver_seat);
+        contentValues.put(COLUMN_PILLION_SEAT ,pillion_seat);
+        contentValues.put(COLUMN_THIRD_SEAT,third_seat);
+        contentValues.put(COLUMN_FOURTH_SEAT ,fourth_seat);
+        contentValues.put(COLUMN_FIFTH_SEAT,fifth_seat);
+        long inserted=db.insert(TABLE_NAME2,null,contentValues);
         if(inserted == -1)
             return false;
         else
@@ -134,7 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getMainData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res =db.rawQuery("select * from "+TABLE_NAME1,null);
+        Cursor res =db.rawQuery("select * from "+TABLE_MAIN,null);
         return res;
     }
 
@@ -145,7 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getSeatTabData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res =db.rawQuery("select * from "+TABLE_NAME1,null);
+        Cursor res =db.rawQuery("select * from "+TABLE_NAME2,null);
         return res;
     }
 }

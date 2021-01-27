@@ -18,7 +18,8 @@ import com.example.vehicle.domain.hmidata.DatabaseHelper;
 public class SeatHeaterTabFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.seat_heater_tab_fragment, container, false);
         return root;
     }
@@ -33,8 +34,9 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
     private ImageView dashBoardImageView;
     private TextView SeatHeatersTextView;
     private DatabaseHelper databaseHelper;
+    public String driver_seat="Off", pillion_seat="Off", third_seat="Off", fourth_seat="Off", fifth_seat="Off";
     public int driverSeatClickCount=1,pillionSeatClickCount=1,thirdSeatClickCount=1, fourthSeatClickCount=1,fifthSeatClickCount=1;
-    public String driver_seat="Off",pillion_seat="Off",third_seat="Off",fourth_seat="Off",fifth_seat="Off";
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -244,10 +246,9 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
                 return;
         }
     }
-
     public void onStop() {
         super.onStop();
-        boolean isInserted = databaseHelper.insertSeatTabData(driver_seat,pillion_seat,third_seat,fourth_seat,fifth_seat);
+        boolean isInserted = databaseHelper.insertSeatTabData(driver_seat, pillion_seat, third_seat, fourth_seat, fifth_seat);
         if(isInserted==true)
             Toast.makeText(requireActivity(),"Seat Tab Data saved",Toast.LENGTH_LONG).show();
         else

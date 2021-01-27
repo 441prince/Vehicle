@@ -42,7 +42,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
     private TextView fanSpeedText;
     private DatabaseHelper databaseHelper;
     public int count=0;
-    public String ac_direction="Up",max_ac="On",air_circulate="Off",bio_hazard="On",rear_fan="Off", fan_speed;
+    public String ac_direction="Off",max_ac="Off",air_circulate="Off",bio_hazard="Off",rear_fan="Off", fan_speed;
     public String value;
 
 
@@ -53,16 +53,20 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
         initViews(view);
         initListeners();
         initObjects();
+        getAcDirection();
 
-        /*Cursor cursor= databaseHelper.getFanSpeedData();
+        Cursor cursor= databaseHelper.getFanSpeedData();
         if (cursor.getCount()==0){
             Toast.makeText(requireContext(),"No data",Toast.LENGTH_SHORT).show();
         }
         else {
+            //while (cursor.moveToNext()){
+             //   fanSpeedText.setText(cursor.getString(6));
+           // }
             while (cursor.moveToNext()){
                 fanSpeedText.setText(cursor.getString(6));
             }
-        }*/
+        }
 
     }
 
@@ -111,6 +115,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.faceDirectionImageButton:
                 dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                getAcDirection();
                 Toast.makeText(requireActivity(), "Face Direction On", Toast.LENGTH_SHORT).show();
              new Handler().postDelayed(new Runnable() {
                 @Override public void run() {
@@ -122,36 +127,51 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
 
             case R.id.feetDirectionImageButton:
 
+                getAcDirection();
                 Toast.makeText(requireActivity(), "Feet Direction On", Toast.LENGTH_SHORT).show();
                 return;
 
             case R.id.faceFeetDirectionImageButton:
 
+                getAcDirection();
                 Toast.makeText(requireActivity(), "Face & Feet Direction On", Toast.LENGTH_SHORT).show();
                 return;
 
             case R.id.faceFeetWindShieldDirectionImageButton:
 
+                getAcDirection();
                 Toast.makeText(requireActivity(), "Face, Feet, WindShield Direction On", Toast.LENGTH_SHORT).show();
                 return;
 
             case R.id.maxAcImageButton:
 
+                if(maxAcImageButton.isEnabled()){
+                    max_ac="On";
+                }
                 Toast.makeText(requireActivity(), "Max-AC On", Toast.LENGTH_SHORT).show();
                 return;
 
             case R.id.airCirculateImageButton:
 
+                if(airCirculateImageButton.isEnabled()){
+                    air_circulate="On";
+                }
                 Toast.makeText(requireActivity(), "AirCirculate On", Toast.LENGTH_SHORT).show();
                 return;
 
             case R.id.bioHazardImageButton:
 
+                if(bioHazardImageButton.isEnabled()){
+                    bio_hazard="On";
+                }
                 Toast.makeText(requireActivity(), "Bio-Hazard On", Toast.LENGTH_SHORT).show();
                 return;
 
             case R.id.rearFanImageButton:
 
+                if(rearFanImageButton.isEnabled()){
+                    rear_fan="On";
+                }
                 Toast.makeText(requireActivity(), "Rear Fan On", Toast.LENGTH_SHORT).show();
                 return;
 
@@ -185,7 +205,23 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    @Override
+    public void getAcDirection(){
+
+        if(faceDirectionImageButton.isPressed()){
+            ac_direction="To Face";
+        }
+        if(feetDirectionImageButton.isPressed()){
+            ac_direction="To Feet";
+        }
+        if(faceFeetDirectionImageButton.isPressed()){
+            ac_direction="To Face and Feet";
+        }
+        if(faceFeetWindShieldDirectionImageButton.isPressed()){
+            ac_direction="To Face,Feet and WindShield";
+        }
+    }
+
+    /*@Override
     public void onPause() {
         super.onPause();
         boolean isInserted = databaseHelper.insertFanTabData(ac_direction,max_ac,air_circulate,bio_hazard,rear_fan,fanSpeedText.getText().toString());
@@ -193,7 +229,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(requireActivity(),"Fan speed saved",Toast.LENGTH_LONG).show();
         else
             Toast.makeText(requireActivity(),"Data not Inserted",Toast.LENGTH_LONG).show();
-    }
+    }*/
 
     @Override
     public void onStop() {

@@ -118,7 +118,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(faceDirectionClickCount==1){
                     getOnAcDirection();
                     faceDirectionImageButton.setImageResource(R.drawable.upon);
-                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    dashBoardImageView.setImageResource(R.drawable.fanup);
                     Toast.makeText(requireActivity(),"Face Direction On",Toast.LENGTH_SHORT).show();
                     faceDirectionClickCount++;
                 }else if(faceDirectionClickCount==2){
@@ -143,7 +143,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(feetDirectionClickCount==1){
                     getOnAcDirection();
                     feetDirectionImageButton.setImageResource(R.drawable.downon);
-                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    dashBoardImageView.setImageResource(R.drawable.fandown);
                     Toast.makeText(requireActivity(),"Feet Direction On",Toast.LENGTH_SHORT).show();
                     feetDirectionClickCount++;
                 }else if(feetDirectionClickCount==2){
@@ -161,7 +161,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(faceFeetDirectionClickCount==1){
                     getOnAcDirection();
                     faceFeetDirectionImageButton.setImageResource(R.drawable.updownon);
-                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    dashBoardImageView.setImageResource(R.drawable.fanupdown);
                     Toast.makeText(requireActivity(),"Face & Feet Direction On",Toast.LENGTH_SHORT).show();
                     faceFeetDirectionClickCount++;
                 }else if(faceFeetDirectionClickCount==2){
@@ -179,7 +179,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(faceFeetWindShieldDirectionClickCount==1){
                     getOnAcDirection();
                     faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshieldon);
-                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    dashBoardImageView.setImageResource(R.drawable.fanupdowndefrost);
                     Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction On",Toast.LENGTH_SHORT).show();
                     faceFeetWindShieldDirectionClickCount++;
                 }else if(faceFeetWindShieldDirectionClickCount==2){

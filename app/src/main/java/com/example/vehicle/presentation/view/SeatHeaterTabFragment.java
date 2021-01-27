@@ -33,10 +33,8 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
     private ImageView dashBoardImageView;
     private TextView SeatHeatersTextView;
     private DatabaseHelper databaseHelper;
+    public int driverSeatClickCount=1,pillionSeatClickCount=1,thirdSeatClickCount=1, fourthSeatClickCount=1,fifthSeatClickCount=1;
 
-
-    // int buttonSelectCount = this.getArguments().getInt("message");
-    int buttonSelectCount=1;
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -78,32 +76,34 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.allOffButton:
                 dashBoardImageView.setImageResource(R.drawable.seat);
+                driverSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                pillionSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                thirdSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                fourthSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                fifthSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
                 Toast.makeText(requireActivity(),"All Seat Heaters Off",Toast.LENGTH_SHORT).show();
                 return;
 
             case R.id.driverSeatButton:
 
                 dashBoardImageView.setImageResource(R.drawable.driverheat);
-
-
-                if(buttonSelectCount==1){
+                if(driverSeatClickCount==1){
                     v.setBackgroundResource(R.drawable.rightlow);
                     Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==2){
+                    driverSeatClickCount++;
+                }else if(driverSeatClickCount==2){
                     v.setBackgroundResource(R.drawable.rightmed);
                     Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==3){
+                    driverSeatClickCount++;
+                }else if(driverSeatClickCount==3){
                     v.setBackgroundResource(R.drawable.righthigh);
                     Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==4) {
+                    driverSeatClickCount++;
+                }else if(driverSeatClickCount==4) {
                     v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
                     Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    ImageView imageSeatHeaterOff = (ImageView) v.findViewById(R.id.dashBoardImageView);
                     dashBoardImageView.setImageResource(R.drawable.seat);
-                    buttonSelectCount=1;
+                    driverSeatClickCount=1;
                 }
                 return;
 
@@ -111,24 +111,23 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
 
                 dashBoardImageView.setImageResource(R.drawable.pillionheat);
 
-                if(buttonSelectCount==1){
+                if(pillionSeatClickCount==1){
                     v.setBackgroundResource(R.drawable.rightlow);
                     Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==2){
+                    pillionSeatClickCount++;
+                }else if(pillionSeatClickCount==2){
                     v.setBackgroundResource(R.drawable.rightmed);
                     Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==3){
+                    pillionSeatClickCount++;
+                }else if(pillionSeatClickCount==3){
                     v.setBackgroundResource(R.drawable.righthigh);
                     Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==4) {
+                    pillionSeatClickCount++;
+                }else if(pillionSeatClickCount==4) {
                     v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
                     Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    ImageView imageSeatHeaterOff = (ImageView) v.findViewById(R.id.dashBoardImageView);
                     dashBoardImageView.setImageResource(R.drawable.seat);
-                    buttonSelectCount=1;
+                    pillionSeatClickCount=1;
                 }
                 return;
 
@@ -136,24 +135,23 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
 
                 dashBoardImageView.setImageResource(R.drawable.thirdseatheat);
 
-                if(buttonSelectCount==1){
+                if(thirdSeatClickCount==1){
                     v.setBackgroundResource(R.drawable.rightlow);
                     Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==2){
+                    thirdSeatClickCount++;
+                }else if(thirdSeatClickCount==2){
                     v.setBackgroundResource(R.drawable.rightmed);
                     Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==3){
+                    thirdSeatClickCount++;
+                }else if(thirdSeatClickCount==3){
                     v.setBackgroundResource(R.drawable.righthigh);
                     Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==4) {
+                    thirdSeatClickCount++;
+                }else if(thirdSeatClickCount==4) {
                     v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
                     Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    ImageView imageSeatHeaterOff = (ImageView) v.findViewById(R.id.dashBoardImageView);
                     dashBoardImageView.setImageResource(R.drawable.seat);
-                    buttonSelectCount=1;
+                    thirdSeatClickCount=1;
                 }
 
                 return;
@@ -161,48 +159,46 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
 
                 dashBoardImageView.setImageResource(R.drawable.fourthseatheat);
 
-                if(buttonSelectCount==1){
+                if(fourthSeatClickCount==1){
                     v.setBackgroundResource(R.drawable.rightlow);
                     Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==2){
+                    fourthSeatClickCount++;
+                }else if(fourthSeatClickCount==2){
                     v.setBackgroundResource(R.drawable.rightmed);
                     Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==3){
+                    fourthSeatClickCount++;
+                }else if(fourthSeatClickCount==3){
                     v.setBackgroundResource(R.drawable.righthigh);
                     Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==4) {
+                    fourthSeatClickCount++;
+                }else if(fourthSeatClickCount==4) {
                     v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
                     Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    ImageView imageSeatHeaterOff = (ImageView) v.findViewById(R.id.dashBoardImageView);
                     dashBoardImageView.setImageResource(R.drawable.seat);
-                    buttonSelectCount=1;
+                    fourthSeatClickCount=1;
                 }
                 return;
 
             case R.id.fifthSeatButton:
                 dashBoardImageView.setImageResource(R.drawable.fifthseatheat);
 
-                if(buttonSelectCount==1){
+                if(fifthSeatClickCount==1){
                     v.setBackgroundResource(R.drawable.rightlow);
                     Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==2){
+                    fifthSeatClickCount++;
+                }else if(fifthSeatClickCount==2){
                     v.setBackgroundResource(R.drawable.rightmed);
                     Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==3){
+                    fifthSeatClickCount++;
+                }else if(fifthSeatClickCount==3){
                     v.setBackgroundResource(R.drawable.righthigh);
                     Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    buttonSelectCount++;
-                }else if(buttonSelectCount==4) {
+                    fifthSeatClickCount++;
+                }else if(fifthSeatClickCount==4) {
                     v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
                     Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    ImageView imageSeatHeaterOff = (ImageView) v.findViewById(R.id.dashBoardImageView);
                     dashBoardImageView.setImageResource(R.drawable.seat);
-                    buttonSelectCount=1;
+                    fifthSeatClickCount=1;
                 }
 
                 return;

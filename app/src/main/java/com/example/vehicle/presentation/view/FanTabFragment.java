@@ -120,7 +120,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(clickCount==1){
 
                     faceDirectionImageButton.setImageResource(R.drawable.upon);
-                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    dashBoardImageView.setImageResource(R.drawable.fanup);
                     Toast.makeText(requireActivity(),"Face Direction On",Toast.LENGTH_SHORT).show();
                     clickCount++;
                 }else if(clickCount==2){
@@ -145,7 +145,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(clickCount==1){
 
                     feetDirectionImageButton.setImageResource(R.drawable.downon);
-                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    dashBoardImageView.setImageResource(R.drawable.fandown);
                     Toast.makeText(requireActivity(),"Feet Direction On",Toast.LENGTH_SHORT).show();
                     clickCount++;
                 }else if(clickCount==2){
@@ -163,7 +163,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(clickCount==1){
 
                     faceFeetDirectionImageButton.setImageResource(R.drawable.updownon);
-                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    dashBoardImageView.setImageResource(R.drawable.fanupdown);
                     Toast.makeText(requireActivity(),"Face & Feet Direction On",Toast.LENGTH_SHORT).show();
                     clickCount++;
                 }else if(clickCount==2){
@@ -181,7 +181,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 if(clickCount==1){
 
                     faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshieldon);
-                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    dashBoardImageView.setImageResource(R.drawable.fanupdowndefrost);
                     Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction On",Toast.LENGTH_SHORT).show();
                     clickCount++;
                 }else if(clickCount==2){

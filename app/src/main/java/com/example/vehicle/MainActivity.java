@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.vehicle.domain.hmidata.DatabaseHelper;
+import com.example.vehicle.presentation.view.HomeFragment;
 import com.example.vehicle.presentation.view.TwoTabFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -42,12 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initListeners();
         initObjects();
 
-        acImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
     public void initViews(){
 
@@ -144,10 +139,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.fanImageButton:
 
-                fanImageButton.animate().rotation(fanImageButton.getRotation()+360).start();
-                FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framelayout,new TwoTabFragment());
-                ft.commit();
+                if(clickCount==1){
+                    fanImageButton.animate().rotation(fanImageButton.getRotation()+360).start();
+                    FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.framelayout,new TwoTabFragment());
+                    ft.commit();
+                    clickCount++;
+                }else if(clickCount==2){
+                    fanImageButton.animate().rotation(fanImageButton.getRotation()-360).start();
+                    FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.framelayout,new HomeFragment());
+                    ft.commit();
+                    clickCount=1;
+                }
+
                 return;
             case R.id.rightSeatImageButton:
 
@@ -179,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     for (int i = 0; i < 5; i++) { new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
                             Toast toast= Toast.makeText(getApplicationContext(),"Rear Defrosting.....",Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.TOP|Gravity.CENTER_VERTICAL, 0, 0);
+                            toast.setGravity(Gravity.CENTER|Gravity.BOTTOM, 150, 0);
                             toast.show();
                         }
                     }, i * 1000);

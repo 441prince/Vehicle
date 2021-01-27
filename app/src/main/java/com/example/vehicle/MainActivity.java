@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseHelper databaseHelper;
     private Dialog usermode;
     private ImageButton dog,camp,user;
-    public int clickCount=1;
+    public int autoClickCount=1,acClickCount=1,leftSeatClickCount=1,fanClickCount=1,rightSeatClickCount=1,frontDefrostClickCount=1,rearDefrostClickCount=1;;
+    public int dogModeClickCount=1, campModeClickCount=1,userModeClickCount=1;
 
 
     @Override
@@ -87,29 +88,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.autoImageButton:
 
-                if(clickCount==1){
+                if(autoClickCount==1){
 
                     autoImageButton.setImageResource(R.drawable.autoon);
                     Toast.makeText(getApplicationContext(),"Auto On",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==2){
+                    autoClickCount++;
+                }else if(autoClickCount==2){
                     autoImageButton.setImageResource(R.drawable.autobutton);
                     Toast.makeText(getApplicationContext(),"Auto Off",Toast.LENGTH_SHORT).show();
-                    clickCount=1;
+                    autoClickCount=1;
                 }
 
                 return;
 
             case R.id.acImageButton:
-                if(clickCount==1){
+                if(acClickCount==1){
 
                     acImageButton.setImageResource(R.drawable.acon);
                     //Toast.makeText(getApplicationContext(),"AC On",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==2){
+                    acClickCount++;
+                }else if(acClickCount==2){
                     acImageButton.setImageResource(R.drawable.ac);
                     //Toast.makeText(getApplicationContext(),"AC Off",Toast.LENGTH_SHORT).show();
-                    clickCount=1;
+                    acClickCount=1;
                 }
                 customSeekBar.setVisibility(View.VISIBLE);
                 acTemperatureText.setVisibility(View.GONE);
@@ -138,94 +139,94 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.leftSeatImageButton:
 
-                if(clickCount==1){
+                if(leftSeatClickCount==1){
                     leftSeatImageButton.setImageResource(R.drawable.leftlow);
                     Toast.makeText(getApplicationContext(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==2){
+                    leftSeatClickCount++;
+                }else if(leftSeatClickCount==2){
                     leftSeatImageButton.setImageResource(R.drawable.leftmed);
                     Toast.makeText(getApplicationContext(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==3){
+                    leftSeatClickCount++;
+                }else if(leftSeatClickCount==3){
                     leftSeatImageButton.setImageResource(R.drawable.lefthigh);
                     Toast.makeText(getApplicationContext(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==4){
+                    leftSeatClickCount++;
+                }else if(leftSeatClickCount==4){
                     leftSeatImageButton.setImageResource(R.drawable.leftseat);
                     Toast.makeText(getApplicationContext()," Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    clickCount=1;
+                    leftSeatClickCount=1;
                 }
                 return;
 
             case R.id.fanImageButton:
 
-                if(clickCount==1){
+                if(fanClickCount==1){
                     fanImageButton.animate().rotation(fanImageButton.getRotation()+360).start();
                     FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.framelayout,new TwoTabFragment());
                     ft.commit();
-                    clickCount++;
-                }else if(clickCount==2){
+                    fanClickCount++;
+                }else if(fanClickCount==2){
                     fanImageButton.animate().rotation(fanImageButton.getRotation()-360).start();
                     FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.framelayout,new HomeFragment());
                     ft.commit();
-                    clickCount=1;
+                    fanClickCount=1;
                 }
 
                 return;
             case R.id.rightSeatImageButton:
 
-                if(clickCount==1){
+                if(rightSeatClickCount==1){
                     rightSeatImageButton.setImageResource(R.drawable.rightlow);
                     Toast.makeText(getApplicationContext(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==2){
+                    rightSeatClickCount++;
+                }else if(rightSeatClickCount==2){
                     rightSeatImageButton.setImageResource(R.drawable.rightmed);
                     Toast.makeText(getApplicationContext(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==3){
+                    rightSeatClickCount++;
+                }else if(rightSeatClickCount==3){
                     rightSeatImageButton.setImageResource(R.drawable.righthigh);
                     Toast.makeText(getApplicationContext(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==4){
+                    rightSeatClickCount++;
+                }else if(rightSeatClickCount==4){
                     rightSeatImageButton.setImageResource(R.drawable.rightseat);
                     Toast.makeText(getApplicationContext()," Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    clickCount=1;
+                    rightSeatClickCount=1;
                 }
                 return;
 
             case R.id.frontDefrostImageButton:   //front defrost mode
 
-                if(clickCount==1){
+                if(frontDefrostClickCount==1){
 
                     frontDefrostImageButton.setImageResource(R.drawable.defroston);
                     Toast.makeText(getApplicationContext(),"Defrost On",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==2){
+                    frontDefrostClickCount++;
+                }else if(frontDefrostClickCount==2){
                     frontDefrostImageButton.setImageResource(R.drawable.frontdefrost);
                     Toast.makeText(getApplicationContext(),"Defrost Off",Toast.LENGTH_SHORT).show();
-                    clickCount=1;
+                    frontDefrostClickCount=1;
                 }
 
                 return;
 
             case R.id.rearDefrostImageButton:   //rear defrost mode
-                if(clickCount==1){
+                if(rearDefrostClickCount==1){
                     rearDefrostImageButton.setImageResource(R.drawable.reardefroston);
                     Toast.makeText(getApplicationContext(),"Rear Defrost On",Toast.LENGTH_SHORT).show();
 
                 }
                     for (int i = 0; i < 5; i++) { new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
-                            Toast toast= Toast.makeText(getApplicationContext(),"Rear Defrosting....."+clickCount,Toast.LENGTH_SHORT);
+                            Toast toast= Toast.makeText(getApplicationContext(),"Rear Defrosting....."+rearDefrostClickCount,Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER|Gravity.BOTTOM, 150, 0);
                             toast.show();
-                            clickCount++;
-                            if(clickCount==6){
+                            rearDefrostClickCount++;
+                            if(rearDefrostClickCount==6){
                                 rearDefrostImageButton.setImageResource(R.drawable.reardefrost);
                                 Toast.makeText(getApplicationContext(),"Rear Defrost Off",Toast.LENGTH_SHORT).show();
-                                clickCount=1;
+                                rearDefrostClickCount=1;
 
                             }
                         }
@@ -247,15 +248,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
 
-                if(clickCount==1){
+                if(dogModeClickCount==1){
 
                     carImageButton.setImageResource(R.drawable.usermodeon);
                     Toast.makeText(getApplicationContext(),"Dog Mode is activated",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==2){
+                    dogModeClickCount++;
+                }else if(dogModeClickCount==2){
                     carImageButton.setImageResource(R.drawable.car);
                     Toast.makeText(getApplicationContext(),"Dog mode Off",Toast.LENGTH_SHORT).show();
-                    clickCount=1;
+                    dogModeClickCount=1;
                 }
 
                 usermode.dismiss();
@@ -267,15 +268,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 camp.setBackgroundColor(getResources().getColor(R.color.Blue));
-                if(clickCount==1){
+                if(campModeClickCount==1){
 
                     carImageButton.setImageResource(R.drawable.usermodeon);
                     Toast.makeText(getApplicationContext(),"Camp Mode is activated",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==2){
+                    campModeClickCount++;
+                }else if(campModeClickCount==2){
                     carImageButton.setImageResource(R.drawable.car);
                     Toast.makeText(getApplicationContext(),"Camp mode Off",Toast.LENGTH_SHORT).show();
-                    clickCount=1;
+                    campModeClickCount=1;
                 }
                 usermode.dismiss();
             }
@@ -286,15 +287,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 user.setBackgroundColor(getResources().getColor(R.color.Blue));
-                if(clickCount==1){
+                if(userModeClickCount==1){
 
                     carImageButton.setImageResource(R.drawable.usermodeon);
                     Toast.makeText(getApplicationContext(),"User Mode is activated",Toast.LENGTH_SHORT).show();
-                    clickCount++;
-                }else if(clickCount==2){
+                    userModeClickCount++;
+                }else if(userModeClickCount==2){
                     carImageButton.setImageResource(R.drawable.car);
                     Toast.makeText(getApplicationContext(),"User mode Off",Toast.LENGTH_SHORT).show();
-                    clickCount=1;
+                    userModeClickCount=1;
                 }
                 usermode.dismiss();
             }

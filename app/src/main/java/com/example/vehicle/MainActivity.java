@@ -1,12 +1,21 @@
 package com.example.vehicle;
 
 import android.app.Dialog;
+import android.app.Service;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -16,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.vehicle.domain.hmidata.DatabaseHelper;
 import com.example.vehicle.presentation.view.HomeFragment;
 import com.example.vehicle.presentation.view.TwoTabFragment;
+import com.example.vehicleservice.DatabaseHelper2;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -36,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public int dogModeClickCount=1, campModeClickCount=1,userModeClickCount=1;
     public String auto ="Off", ac ="Off", left_seat="Off", fan="Off", right_seat="Off", front_defrost="Off", rear_defrost="Off", dog_mode="Off", camp_mode="Off", user_mode="Off";
 
+    protected DatabaseHelper2 AddService;
+    ServiceConnection AddServiceConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +70,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fanSpeedText.setText(cursor.getString(6));
             }
         }*/
+        initConnection();
 
     }
+    void initConnection() {
+        AddServiceConnection = new ServiceConnection() {
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                // TODO Auto-generated method stub
+                AddService = null;
+                Toast.makeText(getApplicationContext(), "Service Disconnected",
+                        Toast.LENGTH_SHORT).show();
+                Log.d("IRemote", "Binding - Service disconnected");
+            }
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                // TODO Auto-generated method stub
+
+
+
+                AddService = DatabaseHelper2.Stub.asInterface((IBinder) service);
+                Toast.makeText(getApplicationContext(),
+                        "Addition Service Connected", Toast.LENGTH_SHORT)
+                        .show();
+                Log.d("IRemote", "Binding is done - Service connected");
+            }
+        };
+        if (AddService == null) {
+
+            Intent it = new Intent();
+            it.setPackage("com.example.vehicleservice");
+            it.setAction("service.Calculator");
+            // binding to remote service
+            bindService(it, AddServiceConnection, Service.BIND_AUTO_CREATE);
+        }
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(AddServiceConnection);
+    };
+
+    /*public void onClick(View v) {
+        // TODO Auto-generated method stub
+        switch (v.getId()) {
+            case R.id.add: {
+                int num1 = Integer.parseInt(etValue1.getText().toString());
+                int num2 = Integer.parseInt(etValue2.getText().toString());
+                try {
+                    mSum.setText("Result:" + AddService.add(num1, num2));
+                    Log.d("IRemote", "Binding - Add operation");
+                } catch (RemoteException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            break;
+        }
+    }*/
     public void initViews(){
 
         autoImageButton = (ImageButton) findViewById(R.id.autoImageButton);

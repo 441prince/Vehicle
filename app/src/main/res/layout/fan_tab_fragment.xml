@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     android:background="#C2C2C2">
 
+    <ImageView
+        android:id="@+id/dashBoardImageView"
+        android:layout_width="1213dp"
+        android:layout_height="688dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.382"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.255"
+        app:srcCompat="@drawable/dashfan" />
+
     <LinearLayout
         android:layout_width="322dp"
         android:layout_height="79dp"
@@ -68,70 +80,90 @@
             app:strokeColor="#C80000" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/dashBoardImageView"
-        android:layout_width="1213dp"
-        android:layout_height="688dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.255"
-        app:srcCompat="@drawable/dashfan" />
-
-    <ImageView
-        android:id="@+id/faceDirectionImage"
+    <ImageButton
+        android:id="@+id/faceDirectionImageButton"
         android:layout_width="69dp"
         android:layout_height="66dp"
+        android:background="@drawable/popup_button_custom_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.254"
+        app:layout_constraintVertical_bias="0.307"
         app:srcCompat="@drawable/up" />
 
-    <ImageView
-        android:id="@+id/feetDirectionImage"
+    <ImageButton
+        android:id="@+id/feetDirectionImageButton"
         android:layout_width="70dp"
         android:layout_height="67dp"
+        android:background="@drawable/popup_button_custom_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499"
         app:srcCompat="@drawable/down" />
 
-    <ImageView
-        android:id="@+id/faceFeetDirectionImage"
+    <ImageButton
+        android:id="@+id/faceFeetDirectionImageButton"
         android:layout_width="71dp"
         android:layout_height="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.69"
-        app:srcCompat="@drawable/updown" />
-
-    <ImageView
-        android:id="@+id/faceFeetWindShieldDiectionImage"
-        android:layout_width="66dp"
-        android:layout_height="77dp"
+        android:background="@drawable/popup_button_custom_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.931"
+        app:layout_constraintVertical_bias="0.665"
+        app:srcCompat="@drawable/updown" />
+
+    <ImageButton
+        android:id="@+id/faceFeetWindShieldDirectionImageButton"
+        android:layout_width="66dp"
+        android:layout_height="77dp"
+        android:background="@drawable/popup_button_custom_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.824"
         app:srcCompat="@drawable/updownwindshield" />
 
-    <ImageView
-        android:id="@+id/biohazardImage"
+    <ImageButton
+        android:id="@+id/maxAcImageButton"
+        android:layout_width="187dp"
+        android:layout_height="113dp"
+        android:background="@drawable/popup_button_custom_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97"
+        app:srcCompat="@drawable/maxac" />
+
+    <ImageButton
+        android:id="@+id/airCirculateImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/popup_button_custom_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.712"
+        app:srcCompat="@drawable/circulate" />
+
+    <ImageButton
+        android:id="@+id/bioHazardImageButton"
         android:layout_width="91dp"
         android:layout_height="75dp"
+        android:background="@drawable/popup_button_custom_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -140,10 +172,11 @@
         app:layout_constraintVertical_bias="0.76"
         app:srcCompat="@drawable/biohazard" />
 
-    <ImageView
-        android:id="@+id/rearFanImage"
+    <ImageButton
+        android:id="@+id/rearFanImageButton"
         android:layout_width="67dp"
         android:layout_height="68dp"
+        android:background="@drawable/popup_button_custom_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.937"
@@ -151,17 +184,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.932"
         app:srcCompat="@drawable/rearfan" />
-
-    <ImageView
-        android:id="@+id/maxAcImage"
-        android:layout_width="187dp"
-        android:layout_height="113dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/maxac" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

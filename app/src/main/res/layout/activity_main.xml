@@ -42,6 +42,50 @@
         app:layout_constraintVertical_bias="0.79"
         tools:layout_editor_absoluteX="0dp" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="650dp"
+        android:layout_marginRight="340dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/acTemperatureText"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_temp_bg"
+            android:elevation="35dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center|center_horizontal"
+            android:shadowColor="@color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFFFF"
+            android:textSize="10dp"
+            android:textStyle="normal" />
+
+        <SeekBar
+            android:id="@+id/customSeekBar"
+            style="@android:style/Widget.Material.SeekBar"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:background="@drawable/seek_custom"
+            android:max="27"
+            android:min="16"
+            android:progress="24"
+            android:progressTint="@color/Blue"
+            android:thumbTint="@color/Blue" />
+
+
+    </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"

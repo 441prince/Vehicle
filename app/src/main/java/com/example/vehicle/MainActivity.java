@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 AddService = DatabaseHelper2.Stub.asInterface((IBinder) service);
                 Toast.makeText(getApplicationContext(),
-                        "Addition Service Connected", Toast.LENGTH_SHORT)
+                        "Service Connected", Toast.LENGTH_SHORT)
                         .show();
                 Log.d("IRemote", "Binding is done - Service connected");
             }
@@ -187,12 +187,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(acClickCount==1){
                     ac ="On";
                     acImageButton.setImageResource(R.drawable.acon);
-                    //Toast.makeText(getApplicationContext(),"AC On",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"AC On",Toast.LENGTH_SHORT).show();
                     acClickCount++;
                 }else if(acClickCount==2){
                     ac ="Off";
                     acImageButton.setImageResource(R.drawable.ac);
-                    //Toast.makeText(getApplicationContext(),"AC Off",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"AC Off",Toast.LENGTH_SHORT).show();
                     acClickCount=1;
                 }
                 customSeekBar.setVisibility(View.VISIBLE);

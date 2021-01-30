@@ -202,7 +202,6 @@
                 android:layout_height="80dp"
                 android:background="@drawable/button_custom_bg"
                 android:onClick="popup"
-                android:tint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"

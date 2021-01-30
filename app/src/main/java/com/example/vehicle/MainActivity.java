@@ -8,7 +8,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -179,24 +178,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     auto ="Off";
                     autoImageButton.setImageResource(R.drawable.autobutton);
-                    //Toast.makeText(getApplicationContext(),"Auto Off",Toast.LENGTH_SHORT).show();
-
-
-                    try {
-
-                        int num2=1;
-                        int num = AddService.add(autoClickCount,num2);
-                        if (num==3){
-                            Toast.makeText(this, "Auto" + auto, Toast.LENGTH_SHORT).show();}
-                        Log.d("IRemote", "Binding - Add operation");
-                    } catch (RemoteException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
+                    Toast.makeText(getApplicationContext(),"Auto Off",Toast.LENGTH_SHORT).show();
                     autoClickCount=1;
                 }
-
                 return;
 
             case R.id.acImageButton:

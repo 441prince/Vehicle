@@ -63,7 +63,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/custom_temp_bg"
             android:shadowColor="@color/black"
-            android:elevation="35dp"
+            android:elevation="55dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center|center_horizontal"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"

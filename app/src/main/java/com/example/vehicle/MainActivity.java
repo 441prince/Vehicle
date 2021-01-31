@@ -169,10 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
             case R.id.autoImageButton:
-
                     try {
-
-
                         if(AddService.AutoButton(autoClickCount)==1){
                             auto ="On";
                             autoImageButton.setImageResource(R.drawable.autoon);
@@ -392,13 +389,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 usermode.dismiss();
                     Log.d("IRemote", "Binding - Add operation");
-            }catch (RemoteException e){
+                }
+                catch (RemoteException e){
                     e.printStackTrace();
-
                 }
-                }
-
-
+            }
         });
 
         camp.setOnClickListener(new View.OnClickListener() {

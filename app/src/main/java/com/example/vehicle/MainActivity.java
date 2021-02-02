@@ -2,7 +2,6 @@ package com.example.vehicle;
 
 import android.app.Dialog;
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -25,7 +24,7 @@ import com.example.vehicle.domain.hmidata.DatabaseHelper;
 import com.example.vehicle.presentation.view.BatteryReceiver;
 import com.example.vehicle.presentation.view.HomeFragment;
 import com.example.vehicle.presentation.view.TwoTabFragment;
-import com.example.vehicleservice.DatabaseHelper2;
+import com.example.vehicleservice.IDatabaseHelperInterface;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -48,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public int dogModeClickCount=1, campModeClickCount=1,userModeClickCount=1;
     public String auto ="Off", ac ="Off", left_seat="Off", fan="Off", right_seat="Off", front_defrost="Off", rear_defrost="Off", dog_mode="Off", camp_mode="Off", user_mode="Off";
 
-    protected DatabaseHelper2 AddService;
-    ServiceConnection AddServiceConnection;
+    protected IDatabaseHelperInterface dataService;
+    ServiceConnection dataServiceConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +78,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     void initConnection() {
-        AddServiceConnection = new ServiceConnection() {
+        dataServiceConnection = new ServiceConnection() {
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
                 // TODO Auto-generated method stub
-                AddService = null;
+                dataService = null;
                 Toast.makeText(getApplicationContext(), "Service Disconnected",
                         Toast.LENGTH_SHORT).show();
                 Log.d("IRemote", "Binding - Service disconnected");
@@ -96,26 +95,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-                AddService = DatabaseHelper2.Stub.asInterface((IBinder) service);
-                Toast.makeText(getApplicationContext(),
-                        "Addition Service Connected", Toast.LENGTH_SHORT)
-                        .show();
+                dataService = IDatabaseHelperInterface.Stub.asInterface((IBinder) service);
+                Toast.makeText(getApplicationContext(), "Database Service Connected", Toast.LENGTH_SHORT).show();
                 Log.d("IRemote", "Binding is done - Service connected");
             }
         };
-        if (AddService == null) {
+        if (dataService == null) {
 
             Intent it = new Intent();
             it.setPackage("com.example.vehicleservice");
-            it.setAction("service.Calculator");
+            it.setAction("service.Database");
             // binding to remote service
-            bindService(it, AddServiceConnection, Service.BIND_AUTO_CREATE);
+            bindService(it, dataServiceConnection, Service.BIND_AUTO_CREATE);
         }
     }
 
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(AddServiceConnection);
+        unbindService(dataServiceConnection);
     };
 
     /*public void onClick(View v) {
@@ -179,13 +176,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.autoImageButton:
                     try {
-                        if(AddService.AutoButton(autoClickCount)==1){
+                        if(dataService.autoButtonOn(autoClickCount)==1){
                             auto ="On";
                             autoImageButton.setImageResource(R.drawable.autoon);
                             Toast.makeText(getApplicationContext(),"Auto On",Toast.LENGTH_SHORT).show();
                             autoClickCount++;
                         }
-                        else if(AddService.AutoButtonOff(autoClickCount)==2){
+                        else if(dataService.autoButtonOff(autoClickCount)==2){
                             auto ="Off";
                             autoImageButton.setImageResource(R.drawable.autobutton);
                             Toast.makeText(this, "Auto" + auto, Toast.LENGTH_SHORT).show();
@@ -202,12 +199,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.acImageButton:
                 try {
-                    if(AddService.AutoButton(acClickCount)==1){
+                    if(dataService.acButtonOn(acClickCount)==1){
                         ac ="On";
                         acImageButton.setImageResource(R.drawable.acon);
                         Toast.makeText(getApplicationContext(),"AC On",Toast.LENGTH_SHORT).show();
                         acClickCount++;
-                    }else if(AddService.AutoButton(acClickCount)==2){
+                    }else if(dataService.acButtonOff(acClickCount)==2){
                         ac ="Off";
                         acImageButton.setImageResource(R.drawable.ac);
                         Toast.makeText(getApplicationContext(),"AC Off",Toast.LENGTH_SHORT).show();
@@ -315,12 +312,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.frontDefrostImageButton:   //front defrost mode
 
                 try {
-                    if(AddService.DefrostButtonOn(frontDefrostClickCount)==1){
+                    if(dataService.frontDefrostButtonOn(frontDefrostClickCount)==1){
                         front_defrost="On";
                         frontDefrostImageButton.setImageResource(R.drawable.defroston);
                         Toast.makeText(getApplicationContext(),"Defrost On",Toast.LENGTH_SHORT).show();
                         frontDefrostClickCount++;
-                    }else if(AddService.DefrostButtonOff(frontDefrostClickCount)==2){
+                    }else if(dataService.frontDefrostButtonOff(frontDefrostClickCount)==2){
                         front_defrost="Off";
                         frontDefrostImageButton.setImageResource(R.drawable.frontdefrost);
                         Toast.makeText(getApplicationContext(),"Defrost Off",Toast.LENGTH_SHORT).show();
@@ -339,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 try {
 
-                    if (AddService.RearDefrostButtonOn(rearDefrostClickCount) == 1) {
+                    if (dataService.rearDefrostButtonOn(rearDefrostClickCount) == 1) {
                         rear_defrost = "On";
                         rearDefrostImageButton.setImageResource(R.drawable.reardefroston);
                         Toast.makeText(getApplicationContext(), "Rear Defrost On", Toast.LENGTH_SHORT).show();
@@ -384,12 +381,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
 
                 try {
-                      if(AddService.UserButtonOn(dogModeClickCount)==1){
+                      if(dataService.userButtonOn(dogModeClickCount)==1){
                     dog_mode="Activated";
                     carImageButton.setImageResource(R.drawable.dogon);
                     Toast.makeText(getApplicationContext(),"Dog Mode is activated",Toast.LENGTH_SHORT).show();
                     dogModeClickCount++;
-                }else if(AddService.UserButtonOff(dogModeClickCount)==2){
+                }else if(dataService.userButtonOn(dogModeClickCount)==2){
                     dog_mode="De-activated";
                     carImageButton.setImageResource(R.drawable.car);
                     Toast.makeText(getApplicationContext(),"Dog mode is De-activated",Toast.LENGTH_SHORT).show();
@@ -412,12 +409,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 camp.setBackgroundColor(getResources().getColor(R.color.Blue));
 
                 try {
-                    if(AddService.UserButtonOn(campModeClickCount)==1){
+                    if(dataService.userButtonOn(campModeClickCount)==1){
 
                         carImageButton.setImageResource(R.drawable.campon);
                         Toast.makeText(getApplicationContext(),"Camp Mode is activated",Toast.LENGTH_SHORT).show();
                         campModeClickCount++;
-                    }else if(AddService.UserButtonOff(campModeClickCount)==2){
+                    }else if(dataService.userButtonOn(campModeClickCount)==2){
                         camp_mode="De-activated";
                         carImageButton.setImageResource(R.drawable.car);
                         Toast.makeText(getApplicationContext(),"Camp mode is De-activated",Toast.LENGTH_SHORT).show();
@@ -439,12 +436,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 user.setBackgroundColor(getResources().getColor(R.color.Blue));
 
                 try {
-                    if(AddService.UserButtonOn(userModeClickCount)==1){
+                    if(dataService.userButtonOn(userModeClickCount)==1){
                         user_mode="Activated";
                         carImageButton.setImageResource(R.drawable.useron);
                         Toast.makeText(getApplicationContext(),"User Mode is activated",Toast.LENGTH_SHORT).show();
                         userModeClickCount++;
-                    }else if(AddService.UserButtonOff(userModeClickCount)==2){
+                    }else if(dataService.userButtonOn(userModeClickCount)==2){
                         user_mode="De-activated";
                         carImageButton.setImageResource(R.drawable.car);
                         Toast.makeText(getApplicationContext(),"User mode is De-activated",Toast.LENGTH_SHORT).show();

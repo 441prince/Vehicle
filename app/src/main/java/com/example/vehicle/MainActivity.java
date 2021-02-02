@@ -2,8 +2,10 @@ package com.example.vehicle;
 
 import android.app.Dialog;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.vehicle.domain.hmidata.DatabaseHelper;
+import com.example.vehicle.presentation.view.BatteryReceiver;
 import com.example.vehicle.presentation.view.HomeFragment;
 import com.example.vehicle.presentation.view.TwoTabFragment;
 import com.example.vehicleservice.DatabaseHelper2;
@@ -35,10 +38,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton rearDefrostImageButton;
     private ImageButton carImageButton;
     private SeekBar customSeekBar;
-    private TextView acTemperatureText;
+    private TextView acTemperatureText,batteryPercentage;
     private DatabaseHelper databaseHelper;
     private Dialog usermode;
     private ImageButton dog,camp,user;
+    private BatteryReceiver batteryReceiver;
+    private IntentFilter mIntentFilter;
     public int autoClickCount=1,acClickCount=1,leftSeatClickCount=1,fanClickCount=1,rightSeatClickCount=1,frontDefrostClickCount=1,rearDefrostClickCount=1;;
     public int dogModeClickCount=1, campModeClickCount=1,userModeClickCount=1;
     public String auto ="Off", ac ="Off", left_seat="Off", fan="Off", right_seat="Off", front_defrost="Off", rear_defrost="Off", dog_mode="Off", camp_mode="Off", user_mode="Off";
@@ -51,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        batteryReceiver=new BatteryReceiver();
+        mIntentFilter=new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        //registerReceiver(batteryReceiver,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         initViews();
         initListeners();
         initObjects();
@@ -139,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         carImageButton = (ImageButton) findViewById(R.id.carImageButton);
         customSeekBar = (SeekBar) findViewById(R.id.customSeekBar);
         acTemperatureText= findViewById(R.id.acTemperatureText);
+        batteryPercentage=findViewById(R.id.batteryPercentage);
 
         customSeekBar.setVisibility(View.GONE);
         acTemperatureText.setVisibility(View.GONE);
@@ -460,10 +469,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         usermode.show();
         usermode.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(batteryReceiver,mIntentFilter);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        registerReceiver(batteryReceiver,mIntentFilter);
+    }
 
     @Override
     public void onStop() {
         super.onStop();
+        unregisterReceiver(batteryReceiver);
         boolean isInserted = databaseHelper.insertMainData(auto, ac, left_seat, fan, right_seat, front_defrost, rear_defrost, dog_mode, camp_mode, user_mode);
         if(isInserted==true)
             Toast.makeText(getApplicationContext(),"Main Data saved",Toast.LENGTH_LONG).show();

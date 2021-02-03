@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,160 +133,170 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.allOffButton:
-                dashBoardImageView.setImageResource(R.drawable.seat);
-                driverSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                pillionSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                thirdSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                fourthSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                fifthSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                driver_seat="Off";
-                pillion_seat="Off";
-                third_seat="Off";
-                fourth_seat="Off";
-                fifth_seat="Off";
-                Toast.makeText(requireActivity(),"All Seat Heaters Off",Toast.LENGTH_SHORT).show();
-                return;
-
-            case R.id.driverSeatButton:
-
-                dashBoardImageView.setImageResource(R.drawable.driverheat);
-                if(driverSeatClickCount==1){
-                    driver_seat="Low Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightlow);
-                    Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    driverSeatClickCount++;
-                }else if(driverSeatClickCount==2){
-                    driver_seat="Medium Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightmed);
-                    Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    driverSeatClickCount++;
-                }else if(driverSeatClickCount==3){
-                    driver_seat="High Heat Mode On";
-                    v.setBackgroundResource(R.drawable.righthigh);
-                    Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    driverSeatClickCount++;
-                }else if(driverSeatClickCount==4) {
-                    driver_seat=" Heat Mode Off";
-                    v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                    Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
+        try{
+            switch (v.getId()) {
+                case R.id.allOffButton:
                     dashBoardImageView.setImageResource(R.drawable.seat);
-                    driverSeatClickCount=1;
-                }
-                return;
+                    driverSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                    pillionSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                    thirdSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                    fourthSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                    fifthSeatButton.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                    int num=1;
+                    if(seatHeaterTabDataInterface.allOffButton(num)==1){
+                        driver_seat="Off";
+                        pillion_seat="Off";
+                        third_seat="Off";
+                        fourth_seat="Off";
+                        fifth_seat="Off";
+                        Toast.makeText(requireActivity(),"All Seat Heaters Off",Toast.LENGTH_SHORT).show();
+                    }
+                    return;
 
-            case R.id.pillionSeatButton:
+                case R.id.driverSeatButton:
 
-                dashBoardImageView.setImageResource(R.drawable.pillionheat);
+                    dashBoardImageView.setImageResource(R.drawable.driverheat);
+                    if(seatHeaterTabDataInterface.driverSeatButtonOn(driverSeatClickCount)==1){
+                        driver_seat="Low Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightlow);
+                        Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
+                        driverSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.driverSeatButtonOn(driverSeatClickCount)==2){
+                        driver_seat="Medium Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightmed);
+                        Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
+                        driverSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.driverSeatButtonOn(driverSeatClickCount)==3){
+                        driver_seat="High Heat Mode On";
+                        v.setBackgroundResource(R.drawable.righthigh);
+                        Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
+                        driverSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.driverSeatButtonOff(driverSeatClickCount)==4) {
+                        driver_seat=" Heat Mode Off";
+                        v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                        Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
+                        dashBoardImageView.setImageResource(R.drawable.seat);
+                        driverSeatClickCount=1;
+                    }
+                    return;
 
-                if(pillionSeatClickCount==1){
-                    pillion_seat="Low Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightlow);
-                    Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    pillionSeatClickCount++;
-                }else if(pillionSeatClickCount==2){
-                    pillion_seat="Medium Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightmed);
-                    Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    pillionSeatClickCount++;
-                }else if(pillionSeatClickCount==3){
-                    pillion_seat="High Heat Mode On";
-                    v.setBackgroundResource(R.drawable.righthigh);
-                    Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    pillionSeatClickCount++;
-                }else if(pillionSeatClickCount==4) {
-                    pillion_seat="Heat Mode Off";
-                    v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                    Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    dashBoardImageView.setImageResource(R.drawable.seat);
-                    pillionSeatClickCount=1;
-                }
-                return;
+                case R.id.pillionSeatButton:
 
-            case R.id.thirdSeatButton:
+                    dashBoardImageView.setImageResource(R.drawable.pillionheat);
 
-                dashBoardImageView.setImageResource(R.drawable.thirdseatheat);
+                    if(seatHeaterTabDataInterface.pillionSeatButtonOn(pillionSeatClickCount)==1){
+                        pillion_seat="Low Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightlow);
+                        Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
+                        pillionSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.pillionSeatButtonOn(pillionSeatClickCount)==2){
+                        pillion_seat="Medium Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightmed);
+                        Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
+                        pillionSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.pillionSeatButtonOn(pillionSeatClickCount)==3){
+                        pillion_seat="High Heat Mode On";
+                        v.setBackgroundResource(R.drawable.righthigh);
+                        Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
+                        pillionSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.pillionSeatButtonOff(pillionSeatClickCount)==4) {
+                        pillion_seat="Heat Mode Off";
+                        v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                        Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
+                        dashBoardImageView.setImageResource(R.drawable.seat);
+                        pillionSeatClickCount=1;
+                    }
+                    return;
 
-                if(thirdSeatClickCount==1){
-                    third_seat="Low Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightlow);
-                    Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    thirdSeatClickCount++;
-                }else if(thirdSeatClickCount==2){
-                    third_seat="Medium Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightmed);
-                    Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    thirdSeatClickCount++;
-                }else if(thirdSeatClickCount==3){
-                    third_seat="High Heat Mode On";
-                    v.setBackgroundResource(R.drawable.righthigh);
-                    Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    thirdSeatClickCount++;
-                }else if(thirdSeatClickCount==4) {
-                    third_seat="Heat Mode Off";
-                    v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                    Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    dashBoardImageView.setImageResource(R.drawable.seat);
-                    thirdSeatClickCount=1;
-                }
-                return;
-            case R.id.fourthSeatButton:
+                case R.id.thirdSeatButton:
 
-                dashBoardImageView.setImageResource(R.drawable.fourthseatheat);
+                    dashBoardImageView.setImageResource(R.drawable.thirdseatheat);
 
-                if(fourthSeatClickCount==1){
-                    fourth_seat="Low Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightlow);
-                    Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    fourthSeatClickCount++;
-                }else if(fourthSeatClickCount==2){
-                    fourth_seat="Medium Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightmed);
-                    Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    fourthSeatClickCount++;
-                }else if(fourthSeatClickCount==3){
-                    fourth_seat="High Heat Mode On";
-                    v.setBackgroundResource(R.drawable.righthigh);
-                    Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    fourthSeatClickCount++;
-                }else if(fourthSeatClickCount==4) {
-                    fourth_seat="Heat Mode Off";
-                    v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                    Toast.makeText(requireActivity(),"Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    dashBoardImageView.setImageResource(R.drawable.seat);
-                    fourthSeatClickCount=1;
-                }
-                return;
+                    if(seatHeaterTabDataInterface.thirdSeatButtonOn(thirdSeatClickCount)==1){
+                        third_seat="Low Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightlow);
+                        Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
+                        thirdSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.thirdSeatButtonOn(thirdSeatClickCount)==2){
+                        third_seat="Medium Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightmed);
+                        Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
+                        thirdSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.thirdSeatButtonOn(thirdSeatClickCount)==3){
+                        third_seat="High Heat Mode On";
+                        v.setBackgroundResource(R.drawable.righthigh);
+                        Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
+                        thirdSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.thirdSeatButtonOff(thirdSeatClickCount)==4) {
+                        third_seat="Heat Mode Off";
+                        v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                        Toast.makeText(requireActivity()," Heat Mode Off",Toast.LENGTH_SHORT).show();
+                        dashBoardImageView.setImageResource(R.drawable.seat);
+                        thirdSeatClickCount=1;
+                    }
+                    return;
 
-            case R.id.fifthSeatButton:
-                dashBoardImageView.setImageResource(R.drawable.fifthseatheat);
+                case R.id.fourthSeatButton:
 
-                if(fifthSeatClickCount==1){
-                    fifth_seat="Low Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightlow);
-                    Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
-                    fifthSeatClickCount++;
-                }else if(fifthSeatClickCount==2){
-                    fifth_seat="Medium Heat Mode On";
-                    v.setBackgroundResource(R.drawable.rightmed);
-                    Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
-                    fifthSeatClickCount++;
-                }else if(fifthSeatClickCount==3){
-                    fifth_seat="High Heat Mode On";
-                    v.setBackgroundResource(R.drawable.righthigh);
-                    Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
-                    fifthSeatClickCount++;
-                }else if(fifthSeatClickCount==4) {
-                    fifth_seat="Heat Mode Off";
-                    v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
-                    Toast.makeText(requireActivity(),"Heat Mode Off",Toast.LENGTH_SHORT).show();
-                    dashBoardImageView.setImageResource(R.drawable.seat);
-                    fifthSeatClickCount=1;
-                }
-                return;
-            default:
-                return;
+                    dashBoardImageView.setImageResource(R.drawable.fourthseatheat);
+
+                    if(seatHeaterTabDataInterface.fourthSeatButtonOn(fourthSeatClickCount)==1){
+                        fourth_seat="Low Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightlow);
+                        Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
+                        fourthSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.fourthSeatButtonOn(fourthSeatClickCount)==2){
+                        fourth_seat="Medium Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightmed);
+                        Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
+                        fourthSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.fourthSeatButtonOn(fourthSeatClickCount)==3){
+                        fourth_seat="High Heat Mode On";
+                        v.setBackgroundResource(R.drawable.righthigh);
+                        Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
+                        fourthSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.fourthSeatButtonOff(fourthSeatClickCount)==4) {
+                        fourth_seat="Heat Mode Off";
+                        v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                        Toast.makeText(requireActivity(),"Heat Mode Off",Toast.LENGTH_SHORT).show();
+                        dashBoardImageView.setImageResource(R.drawable.seat);
+                        fourthSeatClickCount=1;
+                    }
+                    return;
+
+                case R.id.fifthSeatButton:
+                    dashBoardImageView.setImageResource(R.drawable.fifthseatheat);
+
+                    if(seatHeaterTabDataInterface.fifthSeatButtonOn(fifthSeatClickCount)==1){
+                        fifth_seat="Low Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightlow);
+                        Toast.makeText(requireActivity(),"Low Heat Mode On",Toast.LENGTH_SHORT).show();
+                        fifthSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.fifthSeatButtonOn(fifthSeatClickCount)==2){
+                        fifth_seat="Medium Heat Mode On";
+                        v.setBackgroundResource(R.drawable.rightmed);
+                        Toast.makeText(requireActivity(),"Medium Heat Mode On",Toast.LENGTH_SHORT).show();
+                        fifthSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.fifthSeatButtonOn(fifthSeatClickCount)==3){
+                        fifth_seat="High Heat Mode On";
+                        v.setBackgroundResource(R.drawable.righthigh);
+                        Toast.makeText(requireActivity(),"High Heat Mode On",Toast.LENGTH_SHORT).show();
+                        fifthSeatClickCount++;
+                    }else if(seatHeaterTabDataInterface.fifthSeatButtonOff(fifthSeatClickCount)==4) {
+                        fifth_seat="Heat Mode Off";
+                        v.setBackgroundResource(R.drawable.ic_baseline_waves_24);
+                        Toast.makeText(requireActivity(),"Heat Mode Off",Toast.LENGTH_SHORT).show();
+                        dashBoardImageView.setImageResource(R.drawable.seat);
+                        fifthSeatClickCount=1;
+                    }
+                    return;
+                default:
+                    return;
+            }
+        }
+        catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
     public void onStop() {

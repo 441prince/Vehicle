@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -159,176 +160,187 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.faceDirectionImageButton:
-                if(faceDirectionClickCount==1){
-                    getOnAcDirection();
-                    faceDirectionImageButton.setImageResource(R.drawable.upon);
-                    dashBoardImageView.setImageResource(R.drawable.fanup);
-                    Toast.makeText(requireActivity(),"Face Direction On",Toast.LENGTH_SHORT).show();
-                    faceDirectionClickCount++;
-                }else if(faceDirectionClickCount==2){
-                    getOffAcDirection();
-                    faceDirectionImageButton.setImageResource(R.drawable.up);
-                    dashBoardImageView.setImageResource(R.drawable.dashfan);
-                    Toast.makeText(requireActivity(),"Face Direction Off",Toast.LENGTH_SHORT).show();
-                    faceDirectionClickCount=1;
-                }
+        try {
+            switch (v.getId()) {
+                case R.id.faceDirectionImageButton:
+                    if(fanTabDataInterface.faceDirectionButtonOn(faceDirectionClickCount)==1){
+                        getOnAcDirection();
+                        faceDirectionImageButton.setImageResource(R.drawable.upon);
+                        dashBoardImageView.setImageResource(R.drawable.fanup);
+                        Toast.makeText(requireActivity(),"Face Direction On",Toast.LENGTH_SHORT).show();
+                        faceDirectionClickCount++;
+                    }else if(fanTabDataInterface.faceDirectionButtonOff(faceDirectionClickCount)==2){
+                        getOffAcDirection();
+                        faceDirectionImageButton.setImageResource(R.drawable.up);
+                        dashBoardImageView.setImageResource(R.drawable.dashfan);
+                        Toast.makeText(requireActivity(),"Face Direction Off",Toast.LENGTH_SHORT).show();
+                        faceDirectionClickCount=1;
+                    }
 
-                /*Toast.makeText(requireActivity(), "", Toast.LENGTH_SHORT).show();
-             new Handler().postDelayed(new Runnable() {
-                @Override public void run() {
-                    DashBoardImageView.setImageResource(R.drawable.dashfannew);
-                }
-            }, 1000);*/
+                    /*Toast.makeText(requireActivity(), "", Toast.LENGTH_SHORT).show();
+                        new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            DashBoardImageView.setImageResource(R.drawable.dashfannew);
+                        }
+                    }, 1000);*/
 
-                return;
+                    return;
 
-            case R.id.feetDirectionImageButton:
+                case R.id.feetDirectionImageButton:
 
-                if(feetDirectionClickCount==1){
-                    getOnAcDirection();
-                    feetDirectionImageButton.setImageResource(R.drawable.downon);
-                    dashBoardImageView.setImageResource(R.drawable.fandown);
-                    Toast.makeText(requireActivity(),"Feet Direction On",Toast.LENGTH_SHORT).show();
-                    feetDirectionClickCount++;
-                }else if(feetDirectionClickCount==2){
-                    getOffAcDirection();
-                    feetDirectionImageButton.setImageResource(R.drawable.down);
-                    dashBoardImageView.setImageResource(R.drawable.dashfan);
-                    Toast.makeText(requireActivity(),"Feet Direction Off",Toast.LENGTH_SHORT).show();
-                    feetDirectionClickCount=1;
-                }
+                    if(fanTabDataInterface.feetDirectionButtonOn(feetDirectionClickCount)==1){
+                        getOnAcDirection();
+                        feetDirectionImageButton.setImageResource(R.drawable.downon);
+                        dashBoardImageView.setImageResource(R.drawable.fandown);
+                        Toast.makeText(requireActivity(),"Feet Direction On",Toast.LENGTH_SHORT).show();
+                        feetDirectionClickCount++;
+                    }else if(fanTabDataInterface.feetDirectionButtonOff(feetDirectionClickCount)==2){
+                        getOffAcDirection();
+                        feetDirectionImageButton.setImageResource(R.drawable.down);
+                        dashBoardImageView.setImageResource(R.drawable.dashfan);
+                        Toast.makeText(requireActivity(),"Feet Direction Off",Toast.LENGTH_SHORT).show();
+                        feetDirectionClickCount=1;
+                    }
 
-                return;
+                    return;
 
-            case R.id.faceFeetDirectionImageButton:
+                case R.id.faceFeetDirectionImageButton:
 
-                if(faceFeetDirectionClickCount==1){
-                    getOnAcDirection();
-                    faceFeetDirectionImageButton.setImageResource(R.drawable.updownon);
-                    dashBoardImageView.setImageResource(R.drawable.fanupdown);
-                    Toast.makeText(requireActivity(),"Face & Feet Direction On",Toast.LENGTH_SHORT).show();
-                    faceFeetDirectionClickCount++;
-                }else if(faceFeetDirectionClickCount==2){
-                    getOffAcDirection();
-                    faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
-                    dashBoardImageView.setImageResource(R.drawable.dashfan);
-                    Toast.makeText(requireActivity(),"Face & Feet Direction Off",Toast.LENGTH_SHORT).show();
-                    faceFeetDirectionClickCount=1;
-                }
+                    if(fanTabDataInterface.faceFeetDirectionButtonOn(faceFeetDirectionClickCount)==1){
+                        getOnAcDirection();
+                        faceFeetDirectionImageButton.setImageResource(R.drawable.updownon);
+                        dashBoardImageView.setImageResource(R.drawable.fanupdown);
+                        Toast.makeText(requireActivity(),"Face & Feet Direction On",Toast.LENGTH_SHORT).show();
+                        faceFeetDirectionClickCount++;
+                    }else if(fanTabDataInterface.faceFeetDirectionButtonOff(faceFeetDirectionClickCount)==2){
+                        getOffAcDirection();
+                        faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
+                        dashBoardImageView.setImageResource(R.drawable.dashfan);
+                        Toast.makeText(requireActivity(),"Face & Feet Direction Off",Toast.LENGTH_SHORT).show();
+                        faceFeetDirectionClickCount=1;
+                    }
 
-                return;
+                    return;
 
-            case R.id.faceFeetWindShieldDirectionImageButton:
+                case R.id.faceFeetWindShieldDirectionImageButton:
 
-                if(faceFeetWindShieldDirectionClickCount==1){
-                    getOnAcDirection();
-                    faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshieldon);
-                    dashBoardImageView.setImageResource(R.drawable.fanupdowndefrost);
-                    Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction On",Toast.LENGTH_SHORT).show();
-                    faceFeetWindShieldDirectionClickCount++;
-                }else if(faceFeetWindShieldDirectionClickCount==2){
-                    getOffAcDirection();
-                    faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
-                    dashBoardImageView.setImageResource(R.drawable.dashfan);
-                    Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction Off",Toast.LENGTH_SHORT).show();
-                    faceFeetWindShieldDirectionClickCount=1;
-                }
+                    if(fanTabDataInterface.faceFeetWindShieldDirectionButtonOn(faceFeetWindShieldDirectionClickCount)==1){
+                        getOnAcDirection();
+                        faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshieldon);
+                        dashBoardImageView.setImageResource(R.drawable.fanupdowndefrost);
+                        Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction On",Toast.LENGTH_SHORT).show();
+                        faceFeetWindShieldDirectionClickCount++;
+                    }else if(fanTabDataInterface.faceFeetWindShieldDirectionButtonOff(faceFeetWindShieldDirectionClickCount)==2){
+                        getOffAcDirection();
+                        faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
+                        dashBoardImageView.setImageResource(R.drawable.dashfan);
+                        Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction Off",Toast.LENGTH_SHORT).show();
+                        faceFeetWindShieldDirectionClickCount=1;
+                    }
 
-                return;
+                    return;
 
-            case R.id.maxAcImageButton:
+                case R.id.maxAcImageButton:
 
-                if(maxAcClickCount==1){
-                    max_ac="On";
-                    maxAcImageButton.setImageResource(R.drawable.maxacon);
-                    Toast.makeText(requireActivity(),"Max-AC On",Toast.LENGTH_SHORT).show();
-                    maxAcClickCount++;
-                }else if(maxAcClickCount==2){
-                    max_ac="Off";
-                    maxAcImageButton.setImageResource(R.drawable.maxac);
-                    Toast.makeText(requireActivity(),"Max-AC Off",Toast.LENGTH_SHORT).show();
-                    maxAcClickCount=1;
-                }
+                    if(fanTabDataInterface.maxAcButtonOn(maxAcClickCount)==1){
+                        max_ac="On";
+                        maxAcImageButton.setImageResource(R.drawable.maxacon);
+                        Toast.makeText(requireActivity(),"Max-AC On",Toast.LENGTH_SHORT).show();
+                        maxAcClickCount++;
+                    }else if(fanTabDataInterface.maxAcButtonOff(maxAcClickCount)==2){
+                        max_ac="Off";
+                        maxAcImageButton.setImageResource(R.drawable.maxac);
+                        Toast.makeText(requireActivity(),"Max-AC Off",Toast.LENGTH_SHORT).show();
+                        maxAcClickCount=1;
+                    }
 
-                return;
+                    return;
 
-            case R.id.airCirculateImageButton:
+                case R.id.airCirculateImageButton:
 
-                if(airCirculateClickCount==1){
-                    air_circulate="On";
-                    airCirculateImageButton.setImageResource(R.drawable.circulateon);
-                    Toast.makeText(requireActivity(),"AirCirculate On",Toast.LENGTH_SHORT).show();
-                    airCirculateClickCount++;
-                }else if(airCirculateClickCount==2){
-                    air_circulate="Off";
-                    airCirculateImageButton.setImageResource(R.drawable.circulate);
-                    Toast.makeText(requireActivity(),"AirCirculate Off",Toast.LENGTH_SHORT).show();
-                    airCirculateClickCount=1;
-                }
+                    if(fanTabDataInterface.airCirculateButtonOn(airCirculateClickCount)==1){
+                        air_circulate="On";
+                        airCirculateImageButton.setImageResource(R.drawable.circulateon);
+                        Toast.makeText(requireActivity(),"AirCirculate On",Toast.LENGTH_SHORT).show();
+                        airCirculateClickCount++;
+                    }else if(fanTabDataInterface.airCirculateButtonOff(airCirculateClickCount)==2){
+                        air_circulate="Off";
+                        airCirculateImageButton.setImageResource(R.drawable.circulate);
+                        Toast.makeText(requireActivity(),"AirCirculate Off",Toast.LENGTH_SHORT).show();
+                        airCirculateClickCount=1;
+                    }
 
-                return;
+                    return;
 
-            case R.id.bioHazardImageButton:
+                case R.id.bioHazardImageButton:
 
-                if(bioHazardClickCount==1){
-                    bio_hazard="On";
-                    bioHazardImageButton.setImageResource(R.drawable.biohazardon);
-                    Toast.makeText(requireActivity(),"Bio-Hazard On",Toast.LENGTH_SHORT).show();
-                    bioHazardClickCount++;
-                }else if(bioHazardClickCount==2){
-                    bio_hazard="Off";
-                    bioHazardImageButton.setImageResource(R.drawable.biohazard);
-                    Toast.makeText(requireActivity(),"Bio-Hazard Off",Toast.LENGTH_SHORT).show();
-                    bioHazardClickCount=1;
-                }
+                    if(fanTabDataInterface.bioHazardButtonOn(bioHazardClickCount)==1){
+                        bio_hazard="On";
+                        bioHazardImageButton.setImageResource(R.drawable.biohazardon);
+                        Toast.makeText(requireActivity(),"Bio-Hazard On",Toast.LENGTH_SHORT).show();
+                        bioHazardClickCount++;
+                    }else if(fanTabDataInterface.bioHazardButtonOff(bioHazardClickCount)==2){
+                        bio_hazard="Off";
+                        bioHazardImageButton.setImageResource(R.drawable.biohazard);
+                        Toast.makeText(requireActivity(),"Bio-Hazard Off",Toast.LENGTH_SHORT).show();
+                        bioHazardClickCount=1;
+                    }
 
-                return;
+                    return;
 
-            case R.id.rearFanImageButton:
+                case R.id.rearFanImageButton:
 
-                if(rearFanClickCount==1){
-                    rear_fan="On";
-                    rearFanImageButton.setImageResource(R.drawable.rearfanchange);
-                    Toast.makeText(requireActivity(),"Rear Fan On",Toast.LENGTH_SHORT).show();
-                    rearFanClickCount++;
-                }else if(rearFanClickCount==2){
-                    rear_fan="Off";
-                    rearFanImageButton.setImageResource(R.drawable.rearfan);
-                    Toast.makeText(requireActivity(),"Rear Fan Off",Toast.LENGTH_SHORT).show();
-                    rearFanClickCount=1;
-                }
+                    if(fanTabDataInterface.rearFanButtonOn(rearFanClickCount)==1){
+                        rear_fan="On";
+                        rearFanImageButton.setImageResource(R.drawable.rearfanchange);
+                        Toast.makeText(requireActivity(),"Rear Fan On",Toast.LENGTH_SHORT).show();
+                        rearFanClickCount++;
+                    }else if(fanTabDataInterface.rearFanButtonOff(rearFanClickCount)==2){
+                        rear_fan="Off";
+                        rearFanImageButton.setImageResource(R.drawable.rearfan);
+                        Toast.makeText(requireActivity(),"Rear Fan Off",Toast.LENGTH_SHORT).show();
+                        rearFanClickCount=1;
+                    }
 
-                return;
+                    return;
 
-            case R.id.increase:
+                case R.id.increase:
 
-                if(count<7){
-                    count++;}
+                    if(count<7){
+                        count++;
+                    }
+                    dashBoardImageView.setImageResource(R.drawable.dashfanon);
+                    value=Integer.toString(count);
+                    if(fanTabDataInterface.fanSpeed(count)==count){
+                        fanSpeedText.setText( value);
+                    }
 
+                    return;
 
-                dashBoardImageView.setImageResource(R.drawable.dashfanon);
-                value=Integer.toString(count);
-                fanSpeedText.setText( value);
-                return;
+                case R.id.decrease:
 
-            case R.id.decrease:
+                    if(count>0){
+                        count--;}
+                    else if(count==0) {
+                        dashBoardImageView.setImageResource(R.drawable.dashfannew);
+                        Toast.makeText(requireActivity(),"Fan Turned Off",Toast.LENGTH_SHORT).show();
+                    }
+                    value=Integer.toString(count);
+                    if(fanTabDataInterface.fanSpeed(count)==count){
+                        fanSpeedText.setText( value);
+                    }
+                    return;
 
-                if(count>0){
-                    count--;}
-                else if(count==0) {
-                    dashBoardImageView.setImageResource(R.drawable.dashfannew);
-                    Toast.makeText(requireActivity(),"Fan Turned Off",Toast.LENGTH_SHORT).show();
-                }
-                value=Integer.toString(count);
-                fanSpeedText.setText( value);
-                return;
+                case R.id.fanSpeedText:
+                    return;
 
-            case R.id.fanSpeedText:
-                return;
-            default:
-                return;
+                default:
+                    return;
+            }
+        }
+        catch (RemoteException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
         }
     }
 

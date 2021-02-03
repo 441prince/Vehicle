@@ -1,5 +1,12 @@
 package com.example.vehicle.presentation.view;
+
+import android.app.Service;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,13 +14,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.vehicle.R;
 import com.example.vehicle.domain.hmidata.DatabaseHelper;
+import com.example.vehicleservice.ISeatHeaterTabDataInterface;
 
 public class SeatHeaterTabFragment extends Fragment implements View.OnClickListener {
     @Nullable
@@ -23,7 +29,6 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.seat_heater_tab_fragment, container, false);
         return root;
     }
-
 
     private Button allOffButton;
     private Button driverSeatButton;
@@ -37,6 +42,8 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
     public String driver_seat="Off", pillion_seat="Off", third_seat="Off", fourth_seat="Off", fifth_seat="Off";
     public int driverSeatClickCount=1,pillionSeatClickCount=1,thirdSeatClickCount=1, fourthSeatClickCount=1,fifthSeatClickCount=1;
 
+    protected ISeatHeaterTabDataInterface seatHeaterTabDataInterface;
+    ServiceConnection SeatHeaterTabDataServiceConnection;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -45,6 +52,7 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
         initViews(view);
         initListeners();
         initObjects();
+        initConnection();
 
         /*Cursor cursor= databaseHelper.getFanTabData();
         if (cursor.getCount()==0){
@@ -59,6 +67,40 @@ public class SeatHeaterTabFragment extends Fragment implements View.OnClickListe
             }
         }*/
 
+    }
+    void initConnection() {
+        SeatHeaterTabDataServiceConnection = new ServiceConnection() {
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                // TODO Auto-generated method stub
+                seatHeaterTabDataInterface = null;
+                Toast.makeText(requireActivity(), "Seat Heater Tab Data Service Disconnected", Toast.LENGTH_SHORT).show();
+                Log.d("IRemote", "Binding -Seat Heater Tab Service disconnected");
+            }
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                // TODO Auto-generated method stub
+
+
+                seatHeaterTabDataInterface = ISeatHeaterTabDataInterface.Stub.asInterface((IBinder) service);
+                Toast.makeText(requireActivity(), "Seat Heater Data Service Connected", Toast.LENGTH_SHORT).show();
+                Log.d("IRemote", "Binding is done -Fan Tab Data Service connected");
+            }
+        };
+        if (seatHeaterTabDataInterface == null) {
+
+            Intent intent = new Intent();
+            intent.setPackage("com.example.vehicleservice");
+            intent.setAction("service.SeatHeaterTabData");
+            // binding to remote service
+            getActivity().bindService(intent, SeatHeaterTabDataServiceConnection, Service.BIND_AUTO_CREATE);
+        }
+    }
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unbindService(SeatHeaterTabDataServiceConnection);
     }
 
     public void initViews(View view){

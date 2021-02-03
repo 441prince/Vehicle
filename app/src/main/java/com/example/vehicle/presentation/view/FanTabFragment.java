@@ -1,7 +1,13 @@
 package com.example.vehicle.presentation.view;
 
+import android.app.Service;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.vehicle.R;
 import com.example.vehicle.domain.hmidata.DatabaseHelper;
+import com.example.vehicleservice.IFanTabDataInterface;
 
 
 public class FanTabFragment extends Fragment implements View.OnClickListener {
@@ -45,14 +52,19 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
     public String value;
     public int faceDirectionClickCount=1,feetDirectionClickCount=1,faceFeetDirectionClickCount=1,faceFeetWindShieldDirectionClickCount=1,maxAcClickCount=1,airCirculateClickCount=1,bioHazardClickCount=1,rearFanClickCount=1;;
 
+    protected IFanTabDataInterface fanTabDataInterface;
+    ServiceConnection fanTabDataServiceConnection;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
 
         initViews(view);
         initListeners();
         initObjects();
+        initConnection();
+
         getOnAcDirection();
         getOffAcDirection();
 
@@ -69,6 +81,40 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
             }
         }
 
+    }
+    void initConnection() {
+        fanTabDataServiceConnection = new ServiceConnection() {
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                // TODO Auto-generated method stub
+                fanTabDataInterface = null;
+                Toast.makeText(requireActivity(), "Fan Tab Data Service Disconnected", Toast.LENGTH_SHORT).show();
+                Log.d("IRemote", "Binding -Fan Tab Service disconnected");
+            }
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                // TODO Auto-generated method stub
+
+
+                fanTabDataInterface = IFanTabDataInterface.Stub.asInterface((IBinder) service);
+                Toast.makeText(requireActivity(), "Fan Tab Data Service Connected", Toast.LENGTH_SHORT).show();
+                Log.d("IRemote", "Binding is done -Fan Tab Data Service connected");
+            }
+        };
+        if (fanTabDataInterface == null) {
+
+            Intent intent = new Intent();
+            intent.setPackage("com.example.vehicleservice");
+            intent.setAction("service.FanTabData");
+            // binding to remote service
+            getActivity().bindService(intent, fanTabDataServiceConnection, Service.BIND_AUTO_CREATE);
+        }
+    }
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unbindService(fanTabDataServiceConnection);
     }
 
     public  void initViews(View view){

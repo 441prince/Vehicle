@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public int autoClickCount = 1, acClickCount = 1, leftSeatClickCount = 1, fanClickCount = 1, rightSeatClickCount = 1, frontDefrostClickCount = 1, rearDefrostClickCount = 1;
     public int dogModeClickCount = 1, campModeClickCount = 1, userModeClickCount = 1;
     public String auto = "Off", ac = "Off", left_seat = "Off", fan = "Off", right_seat = "Off", front_defrost = "Off", rear_defrost = "Off", dog_mode = "Off", camp_mode = "Off", user_mode = "Off";
+    private MyBroadcastReceiver MyReceiver;
 
     protected IMainDataInterface mainDataInterface;
     ServiceConnection mainDataServiceConnection;
@@ -61,24 +62,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initViews();
         initListeners();
         initObjects();
-        initConnection();
+        initBroadcastReceiver();
+        initServiceConnection();
 
-        /*Cursor cursor= databaseHelper.getFanTabData();
-        if (cursor.getCount()==0){
-            Toast.makeText(getApplicationContext(),"No data",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            while (cursor.moveToNext()){
-               fanSpeedText.setText(cursor.getString(6));
-            }
-            while (cursor.moveToNext()){
-                fanSpeedText.setText(cursor.getString(6));
-            }
-        }*/
 
     }
-
-    void initConnection() {
+    void initBroadcastReceiver(){
+        MyReceiver = new MyBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter("com.example.vehicleservice");
+        if(intentFilter != null)
+        {
+            registerReceiver(MyReceiver, intentFilter);
+        }
+    }
+    void initServiceConnection() {
         mainDataServiceConnection = new ServiceConnection() {
 
             @Override
@@ -112,24 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         unbindService(mainDataServiceConnection);
     }
-
-    /*public void onClick(View v) {
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            case R.id.add: {
-                int num1 = Integer.parseInt(etValue1.getText().toString());
-                int num2 = Integer.parseInt(etValue2.getText().toString());
-                try {
-                    mSum.setText("Result:" + AddService.add(num1, num2));
-                    Log.d("IRemote", "Binding - Add operation");
-                } catch (RemoteException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-            break;
-        }
-    }*/
     public void initViews() {
 
         autoImageButton = (ImageButton) findViewById(R.id.autoImageButton);
@@ -439,12 +418,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause () {
         super.onPause();
+
         registerReceiver(batteryReceiver, mIntentFilter);
     }
 
     @Override
     public void onStop () {
         super.onStop();
+            //unregisterReceiver(MyReceiver);
         unregisterReceiver(batteryReceiver);
         boolean isInserted = databaseHelper.insertMainData(auto, ac, left_seat, fan, right_seat, front_defrost, rear_defrost, dog_mode, camp_mode, user_mode);
         if (isInserted == true)

@@ -5,13 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.BatteryManager;
-import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.vehicle.MainActivity;
 import com.example.vehicle.R;
 
@@ -22,15 +18,10 @@ public class BatteryReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
     TextView percentage=((MainActivity)context).findViewById(R.id.batteryPercentage);
-   // ImageView battericon = new ImageView((MainActivity)context).findViewById(R.id.batteryIcon);
     int level=intent.getIntExtra(BatteryManager.EXTRA_LEVEL,-1);
     int scale=intent.getIntExtra(BatteryManager.EXTRA_SCALE,-1);
     int percentageValue=level*100/scale;
     percentage.setText(percentageValue+"%");
-
-
-
-
 
     /*if(percentageValue<20){
         Toast.makeText(context,"Battery low",Toast.LENGTH_SHORT).show();
@@ -77,6 +68,7 @@ public class BatteryReceiver extends BroadcastReceiver {
                         builder.show();
                     }
                     break;
+
                 case BatteryManager.BATTERY_STATUS_FULL :
                         Toast.makeText(context,"Battery Full ",Toast.LENGTH_SHORT).show();
                         AlertDialog.Builder builder=new AlertDialog.Builder(context);
@@ -125,8 +117,6 @@ public class BatteryReceiver extends BroadcastReceiver {
                     battericon.setImageDrawable(res.getDrawable(R.drawable.lowpercent));
 
                 }*/
-
-
 
         }
 

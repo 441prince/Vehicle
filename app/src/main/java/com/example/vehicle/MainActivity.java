@@ -340,6 +340,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     if (mainDataInterface.dogModeButtonOn(dogModeClickCount) == 1) {
                         dog_mode = "Activated";
+                        camp_mode = "De-activated";
+                        user_mode = "De-activated";
                         carImageButton.setImageResource(R.drawable.dogon);
                         Toast.makeText(getApplicationContext(), "Dog Mode is activated", Toast.LENGTH_SHORT).show();
                         dogModeClickCount++;
@@ -362,6 +364,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 try {
                     camp_mode = "Activated";
+                    dog_mode = "De-activated";
+                    user_mode = "De-activated";
                     camp.setBackgroundColor(getResources().getColor(R.color.Blue));
                     if (mainDataInterface.campModeButtonOn(campModeClickCount) == 1) {
                         carImageButton.setImageResource(R.drawable.campon);
@@ -388,6 +392,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     user.setBackgroundColor(getResources().getColor(R.color.Blue));
                     if (mainDataInterface.userModeButtonOn(userModeClickCount) == 1) {
                         user_mode = "Activated";
+                        dog_mode = "De-activated";
+                        camp_mode = "De-activated";
                         carImageButton.setImageResource(R.drawable.useron);
                         Toast.makeText(getApplicationContext(), "User Mode is activated", Toast.LENGTH_SHORT).show();
                         userModeClickCount++;

@@ -166,6 +166,15 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                     if(fanTabDataInterface.faceDirectionButtonOn(faceDirectionClickCount)==1){
                         getOnAcDirection();
                         faceDirectionImageButton.setImageResource(R.drawable.upon);
+
+                        feetDirectionImageButton.setImageResource(R.drawable.down);
+                        faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
+                        faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
+
+                        feetDirectionClickCount=1;
+                        faceFeetDirectionClickCount=1;
+                        faceFeetWindShieldDirectionClickCount=1;
+
                         dashBoardImageView.setImageResource(R.drawable.fanup);
                         Toast.makeText(requireActivity(),"Face Direction On",Toast.LENGTH_SHORT).show();
                         faceDirectionClickCount++;
@@ -191,6 +200,17 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                     if(fanTabDataInterface.feetDirectionButtonOn(feetDirectionClickCount)==1){
                         getOnAcDirection();
                         feetDirectionImageButton.setImageResource(R.drawable.downon);
+
+                        faceDirectionImageButton.setImageResource(R.drawable.up);
+                        faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
+                        faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
+
+                        faceDirectionClickCount=1;
+                        faceFeetDirectionClickCount=1;
+                        faceFeetWindShieldDirectionClickCount=1;
+
+
+
                         dashBoardImageView.setImageResource(R.drawable.fandown);
                         Toast.makeText(requireActivity(),"Feet Direction On",Toast.LENGTH_SHORT).show();
                         feetDirectionClickCount++;
@@ -209,6 +229,15 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                     if(fanTabDataInterface.faceFeetDirectionButtonOn(faceFeetDirectionClickCount)==1){
                         getOnAcDirection();
                         faceFeetDirectionImageButton.setImageResource(R.drawable.updownon);
+
+                        faceDirectionImageButton.setImageResource(R.drawable.up);
+                        feetDirectionImageButton.setImageResource(R.drawable.down);
+                        faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
+
+                        faceDirectionClickCount=1;
+                        feetDirectionClickCount=1;
+                        faceFeetWindShieldDirectionClickCount=1;
+
                         dashBoardImageView.setImageResource(R.drawable.fanupdown);
                         Toast.makeText(requireActivity(),"Face & Feet Direction On",Toast.LENGTH_SHORT).show();
                         faceFeetDirectionClickCount++;
@@ -227,6 +256,15 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                     if(fanTabDataInterface.faceFeetWindShieldDirectionButtonOn(faceFeetWindShieldDirectionClickCount)==1){
                         getOnAcDirection();
                         faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshieldon);
+
+                        faceDirectionImageButton.setImageResource(R.drawable.up);
+                        feetDirectionImageButton.setImageResource(R.drawable.down);
+                        faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
+
+                        faceDirectionClickCount=1;
+                        feetDirectionClickCount=1;
+                        faceFeetDirectionClickCount=1;
+
                         dashBoardImageView.setImageResource(R.drawable.fanupdowndefrost);
                         Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction On",Toast.LENGTH_SHORT).show();
                         faceFeetWindShieldDirectionClickCount++;

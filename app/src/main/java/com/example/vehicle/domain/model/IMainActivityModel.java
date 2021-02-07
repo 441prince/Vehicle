@@ -2,6 +2,10 @@ package com.example.vehicle.domain.model;
 
 import android.content.Context;
 
+/**
+ * Created by Prince Joel
+ */
+
 public interface IMainActivityModel extends IBaseModel{
 
     void init(Context context);
@@ -16,4 +20,6 @@ public interface IMainActivityModel extends IBaseModel{
     void updateDogModeButtonStatus();
     void updateCampModeButtonStatus();
     void updateUserModeButtonStatus();
+    void updateServiceConnectionStatus(Context context);
+    void updateDatabase(Context context);
 }

@@ -1,12 +1,13 @@
 package com.example.vehicle.presentation.presenter;
 
 import android.content.Context;
-import android.view.View;
-
 import com.example.vehicle.domain.model.IMainActivityModel;
 import com.example.vehicle.domain.model.MainActivityModelImpl;
 import com.example.vehicle.presentation.view.IMainActivityView;
 
+/**
+ * Created by Prince Joel
+ */
 
 public class MainActivityPresenterImpl implements IMainActivityPresenter {
     IMainActivityView mMainActivityView;
@@ -68,6 +69,16 @@ public class MainActivityPresenterImpl implements IMainActivityPresenter {
         mMainActivityModel.updateUserModeButtonStatus();
     }
 
+    @Override
+    public void updateServiceConnectionStatus(Context context) {
+        mMainActivityModel.updateServiceConnectionStatus(context);
+    }
+
+    @Override
+    public void updateDatabase(Context context) {
+        mMainActivityModel.updateDatabase(context);
+    }
+
 
     @Override
     public void notifyAutoButtonStatus(int num) {
@@ -118,6 +129,11 @@ public class MainActivityPresenterImpl implements IMainActivityPresenter {
     @Override
     public void notifyUserModeButtonStatus(int num) {
         mMainActivityView.notifyUserModeButtonStatus(num);
+    }
+
+    @Override
+    public void notifyServiceConnectionStatus(int num) {
+        mMainActivityView.notifyServiceConnectionStatus(num);
     }
 
     @Override

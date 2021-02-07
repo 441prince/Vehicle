@@ -1,5 +1,10 @@
 package com.example.vehicle.domain.model;
 
-public interface IBaseModel {
 
+/**
+ * Created by Prince Joel
+ */
+
+
+public interface IBaseModel {
 }

@@ -11,15 +11,21 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
-
+import com.example.vehicle.domain.hmidata.DatabaseHelper;
 import com.example.vehicle.presentation.presenter.IMainActivityPresenter;
+import com.example.vehicle.utilities.Constants;
 import com.example.vehicleservice.IMainDataInterface;
 
-public class MainActivityModelImpl implements IMainActivityModel {
+/**
+ * Created by Prince Joel
+ */
+
+public class MainActivityModelImpl  implements IMainActivityModel {
 
     IMainActivityPresenter mMainActivityPresenter;
-    //HmiMainDataServiceInterface mHmiServiceInterface;
     protected IMainDataInterface mainDataInterface;
+    ServiceConnection mainDataServiceConnection;
+    private DatabaseHelper databaseHelper;
     public int autoClickCount = 1, acClickCount = 1, leftSeatClickCount = 1, fanClickCount = 1, rightSeatClickCount = 1, frontDefrostClickCount = 1, rearDefrostClickCount = 1;
     public int dogModeClickCount = 1, campModeClickCount = 1, userModeClickCount = 1;
     public String auto = "Off", ac = "Off", left_seat = "Off", fan = "Off", right_seat = "Off", front_defrost = "Off", rear_defrost = "Off", dog_mode = "Off", camp_mode = "Off", user_mode = "Off";
@@ -32,13 +38,14 @@ public class MainActivityModelImpl implements IMainActivityModel {
     @Override
     public void init(Context context) {
 
-        ServiceConnection mainDataServiceConnection = new ServiceConnection() {
+        Log.d("Hmi", "init");
+        mainDataServiceConnection = new ServiceConnection() {
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
                 // TODO Auto-generated method stub
                 mainDataInterface = null;
-                //Toast.makeText(getApplicationContext(), "Main Data Service Disconnected", Toast.LENGTH_SHORT).show();
+                mMainActivityPresenter.notifyServiceConnectionStatus(0);
                 Log.d("IRemote", "Binding - Main Data Service disconnected");
             }
 
@@ -48,21 +55,17 @@ public class MainActivityModelImpl implements IMainActivityModel {
 
 
                 mainDataInterface = IMainDataInterface.Stub.asInterface((IBinder) service);
-                //Toast.makeText(getApplicationContext(), "Main Data Service Connected", Toast.LENGTH_SHORT).show();
+                mMainActivityPresenter.notifyServiceConnectionStatus(1);
                 Log.d("IRemote", "Binding is done - Main Data Service connected");
             }
         };
         if (mainDataInterface == null) {
-            Intent it = new Intent();
-            it.setPackage("com.example.vehicleservice");
-            it.setAction("service.MainData");
+            Intent serviceIntent = new Intent();
+            serviceIntent.setPackage(Constants.SERVICE_PACKAGE);
+            serviceIntent.setAction(Constants.MAIN_SERVICE_PACKAGE_NAME);
             // binding to remote service
-            context.bindService(it, mainDataServiceConnection, Service.BIND_AUTO_CREATE);
+            context.bindService(serviceIntent, mainDataServiceConnection, Service.BIND_AUTO_CREATE);
         }
-
-
-        //Log.d("Hmi", "init");
-        //mHmiServiceInterface = new HmiMainDataServiceInterface(context);
     }
 
     @Override
@@ -317,6 +320,21 @@ public class MainActivityModelImpl implements IMainActivityModel {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void updateServiceConnectionStatus(Context context) {
+        context.unbindService(mainDataServiceConnection);
+    }
+
+    @Override
+    public void updateDatabase(Context context) {
+        this.databaseHelper = new DatabaseHelper(context);
+        boolean isInserted = databaseHelper.insertMainData(auto, ac, left_seat, fan, right_seat, front_defrost, rear_defrost, dog_mode, camp_mode, user_mode);
+        if (isInserted == true)
+            Toast.makeText(context, "Main Data saved", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(context, "Data not Inserted", Toast.LENGTH_LONG).show();
     }
 
 }

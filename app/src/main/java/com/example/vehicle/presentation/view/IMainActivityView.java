@@ -1,5 +1,10 @@
 package com.example.vehicle.presentation.view;
 
+
+/**
+ * Created by Prince Joel
+ */
+
 public interface IMainActivityView {
 
     void notifyAutoButtonStatus(int num);
@@ -12,5 +17,6 @@ public interface IMainActivityView {
     void notifyDogModeButtonStatus(int num);
     void notifyCampModeButtonStatus(int num);
     void notifyUserModeButtonStatus(int num);
+    void notifyServiceConnectionStatus(int num);
 
 }

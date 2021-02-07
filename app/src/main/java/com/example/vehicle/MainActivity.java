@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.rightSeatImageButton.setOnClickListener(this);
         this.frontDefrostImageButton.setOnClickListener(this);
         this.rearDefrostImageButton.setOnClickListener(this);
-        this.carImageButton.setOnClickListener(this);
+        //this.carImageButton.setOnClickListener(this);
 
 
     }
@@ -377,12 +376,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    /*if (mMainActivityPresenter != null) {
+                //try {
+                    if (mMainActivityPresenter != null) {
                         mMainActivityPresenter.updateDogModeButtonStatus();
-                    }*/
+                    }
 
-                    if (mainDataInterface.dogModeButtonOn(dogModeClickCount) == 1) {
+                    /*if (mainDataInterface.dogModeButtonOn(dogModeClickCount) == 1) {
                         dog_mode = "Activated";
                         camp_mode = "De-activated";
                         user_mode = "De-activated";
@@ -400,18 +399,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (RemoteException e) {
                     // TODO Auto-generated catch block
                       e.printStackTrace();
-                 }
+                 }*/
             }
         });
         camp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
+                //try {
 
-                    /*if (mMainActivityPresenter != null) {
+                    if (mMainActivityPresenter != null) {
                         mMainActivityPresenter.updateCampModeButtonStatus();
-                    }*/
-                    camp.setBackgroundColor(getResources().getColor(R.color.Blue));
+                    }
+                    /*camp.setBackgroundColor(getResources().getColor(R.color.Blue));
                     if (mainDataInterface.campModeButtonOn(campModeClickCount) == 1) {
                         camp_mode = "Activated";
                         dog_mode = "De-activated";
@@ -430,17 +429,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (RemoteException e) {
                         //TODO Auto-generated catch block
                         e.printStackTrace();
-                }
+                }*/
             }
         });
         user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    /*if (mMainActivityPresenter != null) {
+                //try {
+                    if (mMainActivityPresenter != null) {
                         mMainActivityPresenter.updateUserModeButtonStatus();
-                    }*/
-                    user.setBackgroundColor(getResources().getColor(R.color.Blue));
+                    }
+                    /*user.setBackgroundColor(getResources().getColor(R.color.Blue));
                     if (mainDataInterface.userModeButtonOn(userModeClickCount) == 1) {
                         user_mode = "Activated";
                         dog_mode = "De-activated";
@@ -459,7 +458,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (RemoteException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }*/
             }
         });
         Window window = usermode.getWindow();

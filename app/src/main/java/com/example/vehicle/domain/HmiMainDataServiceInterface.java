@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.vehicleservice.IMainDataInterface;
 
 public class HmiMainDataServiceInterface {
+
     protected IMainDataInterface mainDataInterface;
 
     ServiceConnection mainDataServiceConnection = new ServiceConnection() {
@@ -46,6 +47,7 @@ public class HmiMainDataServiceInterface {
     public HmiMainDataServiceInterface(Context context) {
         bindServiceApp(context);
     }
+
 
     private void bindServiceApp(Context context) {
         if (mainDataInterface == null) {

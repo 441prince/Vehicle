@@ -1,6 +1,7 @@
 package com.example.vehicle.presentation.presenter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.example.vehicle.domain.model.IMainActivityModel;
 import com.example.vehicle.domain.model.MainActivityModelImpl;
@@ -16,12 +17,113 @@ public class MainActivityPresenterImpl implements IMainActivityPresenter {
         mMainActivityModel = new MainActivityModelImpl(this);
     }
 
+
     @Override
-    public void updateIcons(Context context) {
-        mMainActivityModel.updateIcons(context);
+    public void updateAutoButtonStatus(Context context) {
+        mMainActivityModel.updateAutoButtonStatus(context);
     }
+
+    @Override
+    public void updateAcButtonStatus(Context context) {
+        mMainActivityModel.updateAcButtonStatus(context);
+    }
+
+    @Override
+    public void updateLeft_seatButtonStatus(Context context) {
+        mMainActivityModel.updateLeft_seatButtonStatus(context);
+    }
+
+    @Override
+    public void updateFanButtonStatus(Context context) {
+        mMainActivityModel.updateFanButtonStatus(context);
+    }
+
+    @Override
+    public void updateRight_seatButtonStatus(Context context) {
+        mMainActivityModel.updateRight_seatButtonStatus(context);
+    }
+
+    @Override
+    public void updateFrontDefrostButtonStatus(Context context) {
+        mMainActivityModel.updateFrontDefrostButtonStatus(context);
+    }
+
+    @Override
+    public void updateRearDefrostButtonStatus(Context context) {
+        mMainActivityModel.updateRearDefrostButtonStatus(context);
+    }
+
+    @Override
+    public void updateDogModeButtonStatus() {
+        mMainActivityModel.updateDogModeButtonStatus();
+    }
+
+    @Override
+    public void updateCampModeButtonStatus() {
+        mMainActivityModel.updateCampModeButtonStatus();
+    }
+
+    @Override
+    public void updateUserModeButtonStatus() {
+        mMainActivityModel.updateUserModeButtonStatus();
+    }
+
+
+    @Override
+    public void notifyAutoButtonStatus(int num) {
+        mMainActivityView.notifyAutoButtonStatus(num);
+    }
+
+    @Override
+    public void notifyAcButtonStatus(int num) {
+        mMainActivityView.notifyAcButtonStatus(num);
+    }
+
+    @Override
+    public void notifyLeft_seatButtonStatus(int num) {
+        mMainActivityView.notifyLeft_seatButtonStatus(num);
+    }
+
+    @Override
+    public void notifyFanButtonStatus(int num) {
+        mMainActivityView.notifyFanButtonStatus(num);
+    }
+
+    @Override
+    public void notifyRight_seatButtonStatus(int num) {
+        mMainActivityView.notifyRight_seatButtonStatus(num);
+    }
+
+    @Override
+    public void notifyFrontDefrostButtonStatus(int num) {
+        mMainActivityView.notifyFrontDefrostButtonStatus(num);
+    }
+
+    @Override
+    public void notifyRearDefrostButtonStatus(int num) {
+        mMainActivityView.notifyRearDefrostButtonStatus(num);
+
+    }
+
+    @Override
+    public void notifyDogModeButtonStatus(int num) {
+        mMainActivityView.notifyDogModeButtonStatus(num);
+    }
+
+    @Override
+    public void notifyCampModeButtonStatus(int num) {
+        mMainActivityView.notifyCampModeButtonStatus(num);
+    }
+
+    @Override
+    public void notifyUserModeButtonStatus(int num) {
+        mMainActivityView.notifyUserModeButtonStatus(num);
+    }
+
     @Override
     public void init(Context context) {
         mMainActivityModel.init(context);
     }
+
+
 }

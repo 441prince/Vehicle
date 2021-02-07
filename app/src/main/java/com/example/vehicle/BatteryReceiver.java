@@ -1,4 +1,4 @@
-package com.example.vehicle.presentation.view;
+package com.example.vehicle;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;

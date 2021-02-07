@@ -21,12 +21,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.vehicle.domain.hmidata.DatabaseHelper;
-import com.example.vehicle.presentation.view.BatteryReceiver;
-import com.example.vehicle.presentation.view.HomeFragment;
-import com.example.vehicle.presentation.view.TwoTabFragment;
+import com.example.vehicle.presentation.presenter.IMainActivityPresenter;
+import com.example.vehicle.presentation.presenter.MainActivityPresenterImpl;
+import com.example.vehicle.presentation.view.IMainActivityView;
 import com.example.vehicleservice.IMainDataInterface;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener , IMainActivityView {
 
     private ImageButton autoImageButton;
     private ImageButton acImageButton;
@@ -47,9 +47,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public int dogModeClickCount = 1, campModeClickCount = 1, userModeClickCount = 1;
     public String auto = "Off", ac = "Off", left_seat = "Off", fan = "Off", right_seat = "Off", front_defrost = "Off", rear_defrost = "Off", dog_mode = "Off", camp_mode = "Off", user_mode = "Off";
     private MyBroadcastReceiver MyReceiver;
-
     protected IMainDataInterface mainDataInterface;
     ServiceConnection mainDataServiceConnection;
+
+
+    private IMainActivityPresenter mMainActivityPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         customSeekBar.setVisibility(View.GONE);
         acTemperatureText.setVisibility(View.GONE);
 
+        mMainActivityPresenter = new MainActivityPresenterImpl(this);
+        mMainActivityPresenter.init(this);
+
     }
 
     public void initListeners() {
@@ -149,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
         try {
             switch (v.getId()) {
                 case R.id.autoImageButton:
@@ -438,5 +444,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(), "Main Data saved", Toast.LENGTH_LONG).show();
         else
             Toast.makeText(getApplicationContext(), "Data not Inserted", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void checkButtonStatus() {
+
     }
 }

@@ -41,7 +41,7 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
         /**
          * Database
          */
-
+        this.databaseHelper = new DatabaseHelper(context);
         Cursor cursor= databaseHelper.getFanTabData();
         if (cursor.getCount()==0){
             Toast.makeText(context,"No data",Toast.LENGTH_SHORT).show();

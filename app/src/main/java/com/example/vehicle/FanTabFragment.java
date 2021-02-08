@@ -20,12 +20,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.example.vehicle.R;
 import com.example.vehicle.domain.hmidata.DatabaseHelper;
+import com.example.vehicle.presentation.presenter.FanTabFragmentPresenterImpl;
+import com.example.vehicle.presentation.presenter.IFanTabFragmentPresenter;
+import com.example.vehicle.presentation.presenter.MainActivityPresenterImpl;
+import com.example.vehicle.presentation.view.IFanTabFragmentView;
 import com.example.vehicleservice.IFanTabDataInterface;
 
 
-public class FanTabFragment extends Fragment implements View.OnClickListener {
+public class FanTabFragment extends Fragment implements View.OnClickListener, IFanTabFragmentView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -47,14 +50,12 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
     private ImageView fanImageView;
     private ImageView dashBoardImageView;
     private TextView fanSpeedText;
-    private DatabaseHelper databaseHelper;
-    public int count=0;
+    //private DatabaseHelper databaseHelper;
     public String ac_direction="Off",max_ac="Off",air_circulate="Off",bio_hazard="Off",rear_fan="Off", fan_speed;
-    public String value;
-    public int faceDirectionClickCount=1,feetDirectionClickCount=1,faceFeetDirectionClickCount=1,faceFeetWindShieldDirectionClickCount=1,maxAcClickCount=1,airCirculateClickCount=1,bioHazardClickCount=1,rearFanClickCount=1;;
 
-    protected IFanTabDataInterface fanTabDataInterface;
-    ServiceConnection fanTabDataServiceConnection;
+    private IFanTabFragmentPresenter mFanTabFragmentPresenter;
+    //protected IFanTabDataInterface fanTabDataInterface;
+    //ServiceConnection fanTabDataServiceConnection;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -64,26 +65,26 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
         initViews(view);
         initListeners();
         initObjects();
-        initConnection();
+        //initConnection();
 
         getOnAcDirection();
         getOffAcDirection();
 
-        Cursor cursor= databaseHelper.getFanTabData();
+        /*Cursor cursor= databaseHelper.getFanTabData();
         if (cursor.getCount()==0){
             Toast.makeText(requireContext(),"No data",Toast.LENGTH_SHORT).show();
         }
         else {
-            /*while (cursor.moveToNext()){
-               fanSpeedText.setText(cursor.getString(6));
-            }*/
+            //while (cursor.moveToNext()){
+               //fanSpeedText.setText(cursor.getString(6));
+            //}
             while (cursor.moveToNext()){
                 fanSpeedText.setText(cursor.getString(6));
             }
-        }
+        }*/
 
     }
-    void initConnection() {
+    /*void initConnection() {
         fanTabDataServiceConnection = new ServiceConnection() {
 
             @Override
@@ -112,11 +113,8 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
             // binding to remote service
             getActivity().bindService(intent, fanTabDataServiceConnection, Service.BIND_AUTO_CREATE);
         }
-    }
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().unbindService(fanTabDataServiceConnection);
-    }
+    }*/
+
 
     public  void initViews(View view){
 
@@ -154,16 +152,21 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
     }
     public  void initObjects(){
 
-        this.databaseHelper=new DatabaseHelper(requireContext());
+        //this.databaseHelper=new DatabaseHelper(requireContext());
+        mFanTabFragmentPresenter = new FanTabFragmentPresenterImpl(this);
+        mFanTabFragmentPresenter.init(getContext());
     }
 
 
     @Override
     public void onClick(View v) {
-        try {
+        //try {
             switch (v.getId()) {
                 case R.id.faceDirectionImageButton:
-                    if(fanTabDataInterface.faceDirectionButtonOn(faceDirectionClickCount)==1){
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateFaceDirectionButtonStatus(getContext());
+                    }
+                    /*if(fanTabDataInterface.faceDirectionButtonOn(faceDirectionClickCount)==1){
                         getOnAcDirection();
                         faceDirectionImageButton.setImageResource(R.drawable.upon);
 
@@ -184,7 +187,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                         dashBoardImageView.setImageResource(R.drawable.dashfan);
                         Toast.makeText(requireActivity(),"Face Direction Off",Toast.LENGTH_SHORT).show();
                         faceDirectionClickCount=1;
-                    }
+                    }*/
 
                     /*Toast.makeText(requireActivity(), "", Toast.LENGTH_SHORT).show();
                         new Handler().postDelayed(new Runnable() {
@@ -196,8 +199,11 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                     return;
 
                 case R.id.feetDirectionImageButton:
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateFeetDirectionButtonStatus(getContext());
+                    }
 
-                    if(fanTabDataInterface.feetDirectionButtonOn(feetDirectionClickCount)==1){
+                    /*if(fanTabDataInterface.feetDirectionButtonOn(feetDirectionClickCount)==1){
                         getOnAcDirection();
                         feetDirectionImageButton.setImageResource(R.drawable.downon);
 
@@ -220,13 +226,16 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                         dashBoardImageView.setImageResource(R.drawable.dashfan);
                         Toast.makeText(requireActivity(),"Feet Direction Off",Toast.LENGTH_SHORT).show();
                         feetDirectionClickCount=1;
-                    }
+                    }*/
 
                     return;
 
                 case R.id.faceFeetDirectionImageButton:
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateFaceFeetDirectionButtonStatus(getContext());
+                    }
 
-                    if(fanTabDataInterface.faceFeetDirectionButtonOn(faceFeetDirectionClickCount)==1){
+                    /*if(fanTabDataInterface.faceFeetDirectionButtonOn(faceFeetDirectionClickCount)==1){
                         getOnAcDirection();
                         faceFeetDirectionImageButton.setImageResource(R.drawable.updownon);
 
@@ -247,13 +256,15 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                         dashBoardImageView.setImageResource(R.drawable.dashfan);
                         Toast.makeText(requireActivity(),"Face & Feet Direction Off",Toast.LENGTH_SHORT).show();
                         faceFeetDirectionClickCount=1;
-                    }
+                    }*/
 
                     return;
 
                 case R.id.faceFeetWindShieldDirectionImageButton:
-
-                    if(fanTabDataInterface.faceFeetWindShieldDirectionButtonOn(faceFeetWindShieldDirectionClickCount)==1){
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateFaceFeetWindShieldDirectionButtonStatus(getContext());
+                    }
+                    /*if(fanTabDataInterface.faceFeetWindShieldDirectionButtonOn(faceFeetWindShieldDirectionClickCount)==1){
                         getOnAcDirection();
                         faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshieldon);
 
@@ -274,13 +285,16 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                         dashBoardImageView.setImageResource(R.drawable.dashfan);
                         Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction Off",Toast.LENGTH_SHORT).show();
                         faceFeetWindShieldDirectionClickCount=1;
-                    }
+                    }*/
 
                     return;
 
                 case R.id.maxAcImageButton:
 
-                    if(fanTabDataInterface.maxAcButtonOn(maxAcClickCount)==1){
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateMaxAcButtonStatus(getContext());
+                    }
+                    /*if(fanTabDataInterface.maxAcButtonOn(maxAcClickCount)==1){
                         max_ac="On";
                         maxAcImageButton.setImageResource(R.drawable.maxacon);
                         Toast.makeText(requireActivity(),"Max-AC On",Toast.LENGTH_SHORT).show();
@@ -290,13 +304,15 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                         maxAcImageButton.setImageResource(R.drawable.maxac);
                         Toast.makeText(requireActivity(),"Max-AC Off",Toast.LENGTH_SHORT).show();
                         maxAcClickCount=1;
-                    }
+                    }*/
 
                     return;
 
                 case R.id.airCirculateImageButton:
-
-                    if(fanTabDataInterface.airCirculateButtonOn(airCirculateClickCount)==1){
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateAirCirculateButtonStatus(getContext());
+                    }
+                    /*if(fanTabDataInterface.airCirculateButtonOn(airCirculateClickCount)==1){
                         air_circulate="On";
                         airCirculateImageButton.setImageResource(R.drawable.circulateon);
                         Toast.makeText(requireActivity(),"AirCirculate On",Toast.LENGTH_SHORT).show();
@@ -306,13 +322,15 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                         airCirculateImageButton.setImageResource(R.drawable.circulate);
                         Toast.makeText(requireActivity(),"AirCirculate Off",Toast.LENGTH_SHORT).show();
                         airCirculateClickCount=1;
-                    }
+                    }*/
 
                     return;
 
                 case R.id.bioHazardImageButton:
-
-                    if(fanTabDataInterface.bioHazardButtonOn(bioHazardClickCount)==1){
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateBioHazardButtonStatus(getContext());
+                    }
+                    /*if(fanTabDataInterface.bioHazardButtonOn(bioHazardClickCount)==1){
                         bio_hazard="On";
                         bioHazardImageButton.setImageResource(R.drawable.biohazardon);
                         Toast.makeText(requireActivity(),"Bio-Hazard On",Toast.LENGTH_SHORT).show();
@@ -322,13 +340,15 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                         bioHazardImageButton.setImageResource(R.drawable.biohazard);
                         Toast.makeText(requireActivity(),"Bio-Hazard Off",Toast.LENGTH_SHORT).show();
                         bioHazardClickCount=1;
-                    }
+                    }*/
 
                     return;
 
                 case R.id.rearFanImageButton:
-
-                    if(fanTabDataInterface.rearFanButtonOn(rearFanClickCount)==1){
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateRearFanButtonStatus(getContext());
+                    }
+                    /*if(fanTabDataInterface.rearFanButtonOn(rearFanClickCount)==1){
                         rear_fan="On";
                         rearFanImageButton.setImageResource(R.drawable.rearfanchange);
                         Toast.makeText(requireActivity(),"Rear Fan On",Toast.LENGTH_SHORT).show();
@@ -338,26 +358,30 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                         rearFanImageButton.setImageResource(R.drawable.rearfan);
                         Toast.makeText(requireActivity(),"Rear Fan Off",Toast.LENGTH_SHORT).show();
                         rearFanClickCount=1;
-                    }
+                    }*/
 
                     return;
 
                 case R.id.increase:
-
-                    if(count<7){
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateFanIncreaseSpeedStatus(getContext());
+                    }
+                    /*if(count<7){
                         count++;
                     }
                     dashBoardImageView.setImageResource(R.drawable.dashfanon);
                     value=Integer.toString(count);
                     if(fanTabDataInterface.fanSpeed(count)==count){
                         fanSpeedText.setText( value);
-                    }
+                    }*/
 
                     return;
 
                 case R.id.decrease:
-
-                    if(count>0){
+                    if (mFanTabFragmentPresenter != null) {
+                        mFanTabFragmentPresenter.updateFanDecreaseSpeedStatus(getContext());
+                    }
+                    /*if(count>0){
                         count--;}
                     else if(count==0) {
                         dashBoardImageView.setImageResource(R.drawable.dashfannew);
@@ -366,7 +390,7 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                     value=Integer.toString(count);
                     if(fanTabDataInterface.fanSpeed(count)==count){
                         fanSpeedText.setText( value);
-                    }
+                    }*/
                     return;
 
                 case R.id.fanSpeedText:
@@ -375,11 +399,11 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
                 default:
                     return;
             }
-        }
-        catch (RemoteException e) {
+        //}
+        //catch (RemoteException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
-        }
+                //e.printStackTrace();
+        //}
     }
 
     public void getOnAcDirection(){
@@ -414,6 +438,175 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+
+    @Override
+    public void notifyFaceDirectionButtonStatus(int num) {
+        if(num==1){
+            getOnAcDirection();
+            faceDirectionImageButton.setImageResource(R.drawable.upon);
+
+            feetDirectionImageButton.setImageResource(R.drawable.down);
+            faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
+            faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
+
+            dashBoardImageView.setImageResource(R.drawable.fanup);
+            Toast.makeText(requireActivity(),"Face Direction On",Toast.LENGTH_SHORT).show();
+        }else if(num ==2){
+            getOffAcDirection();
+            faceDirectionImageButton.setImageResource(R.drawable.up);
+            dashBoardImageView.setImageResource(R.drawable.dashfan);
+            Toast.makeText(requireActivity(),"Face Direction Off",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void notifyFeetDirectionButtonStatus(int num) {
+        if(num==1){
+            getOnAcDirection();
+            feetDirectionImageButton.setImageResource(R.drawable.downon);
+
+            faceDirectionImageButton.setImageResource(R.drawable.up);
+            faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
+            faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
+
+            dashBoardImageView.setImageResource(R.drawable.fandown);
+            Toast.makeText(requireActivity(),"Feet Direction On",Toast.LENGTH_SHORT).show();
+
+        }else if(num==2){
+            getOffAcDirection();
+            feetDirectionImageButton.setImageResource(R.drawable.down);
+            dashBoardImageView.setImageResource(R.drawable.dashfan);
+            Toast.makeText(requireActivity(),"Feet Direction Off",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void notifyFaceFeetDirectionButtonStatus(int num) {
+        if(num ==1){
+            getOnAcDirection();
+            faceFeetDirectionImageButton.setImageResource(R.drawable.updownon);
+
+            faceDirectionImageButton.setImageResource(R.drawable.up);
+            feetDirectionImageButton.setImageResource(R.drawable.down);
+            faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
+
+            dashBoardImageView.setImageResource(R.drawable.fanupdown);
+            Toast.makeText(requireActivity(),"Face & Feet Direction On",Toast.LENGTH_SHORT).show();
+        }else if(num ==2){
+            getOffAcDirection();
+            faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
+            dashBoardImageView.setImageResource(R.drawable.dashfan);
+            Toast.makeText(requireActivity(),"Face & Feet Direction Off",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void notifyFaceFeetWindShieldDirectionButtonStatus(int num) {
+        if(num==1){
+            getOnAcDirection();
+            faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshieldon);
+
+            faceDirectionImageButton.setImageResource(R.drawable.up);
+            feetDirectionImageButton.setImageResource(R.drawable.down);
+            faceFeetDirectionImageButton.setImageResource(R.drawable.updown);
+
+            dashBoardImageView.setImageResource(R.drawable.fanupdowndefrost);
+            Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction On",Toast.LENGTH_SHORT).show();
+
+        }else if(num ==2){
+            getOffAcDirection();
+            faceFeetWindShieldDirectionImageButton.setImageResource(R.drawable.updownwindshield);
+            dashBoardImageView.setImageResource(R.drawable.dashfan);
+            Toast.makeText(requireActivity(),"Face, Feet, WindShield Direction Off",Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    @Override
+    public void notifyMaxAcButtonStatus(int num) {
+        if(num==1){
+            max_ac="On";
+            maxAcImageButton.setImageResource(R.drawable.maxacon);
+            Toast.makeText(requireActivity(),"Max-AC On",Toast.LENGTH_SHORT).show();
+        }else if(num ==2){
+            max_ac="Off";
+            maxAcImageButton.setImageResource(R.drawable.maxac);
+            Toast.makeText(requireActivity(),"Max-AC Off",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void notifyAirCirculateButtonStatus(int num) {
+        if(num==1){
+            air_circulate="On";
+            airCirculateImageButton.setImageResource(R.drawable.circulateon);
+            Toast.makeText(requireActivity(),"AirCirculate On",Toast.LENGTH_SHORT).show();
+        }else if(num==2){
+            air_circulate="Off";
+            airCirculateImageButton.setImageResource(R.drawable.circulate);
+            Toast.makeText(requireActivity(),"AirCirculate Off",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void notifyBioHazardButtonStatus(int num) {
+        if(num==1){
+            bio_hazard="On";
+            bioHazardImageButton.setImageResource(R.drawable.biohazardon);
+            Toast.makeText(requireActivity(),"Bio-Hazard On",Toast.LENGTH_SHORT).show();
+        }else if(num==2){
+            bio_hazard="Off";
+            bioHazardImageButton.setImageResource(R.drawable.biohazard);
+            Toast.makeText(requireActivity(),"Bio-Hazard Off",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void notifyRearFanButtonStatus(int num) {
+        if(num==1){
+            rear_fan="On";
+            rearFanImageButton.setImageResource(R.drawable.rearfanchange);
+            Toast.makeText(requireActivity(),"Rear Fan On",Toast.LENGTH_SHORT).show();
+        }else if(num==2){
+            rear_fan="Off";
+            rearFanImageButton.setImageResource(R.drawable.rearfan);
+            Toast.makeText(requireActivity(),"Rear Fan Off",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void notifyFanIncreaseSpeedStatus(String num) {
+
+        dashBoardImageView.setImageResource(R.drawable.dashfanon);
+        fanSpeedText.setText(num);
+    }
+    @Override
+    public void notifyFanDecreaseSpeedStatus(String num) {
+
+
+        if(num=="0") {
+            dashBoardImageView.setImageResource(R.drawable.dashfannew);
+            Toast.makeText(requireActivity(),"Fan Turned Off",Toast.LENGTH_SHORT).show();
+        }
+        fanSpeedText.setText( num);
+    }
+
+    @Override
+    public void notifyServiceConnectionStatus(int num) {
+        if(num==1){
+            Toast.makeText(requireContext(), "Fan Tab Data Service connected", Toast.LENGTH_SHORT).show();
+        }
+        else if(num==0){
+            Toast.makeText(requireContext(), "Fan Tab Data Service Disconnected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void updateFromDatabase(String num) {
+        fanSpeedText.setText(num);
+    }
+
     /*@Override
     public void onPause() {
         super.onPause();
@@ -427,11 +620,17 @@ public class FanTabFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStop() {
         super.onStop();
-        boolean isInserted = databaseHelper.insertFanTabData(ac_direction,max_ac,air_circulate,bio_hazard,rear_fan,fanSpeedText.getText().toString());
+        mFanTabFragmentPresenter.updateDatabase(getContext());
+        /*boolean isInserted = databaseHelper.insertFanTabData(ac_direction,max_ac,air_circulate,bio_hazard,rear_fan,fanSpeedText.getText().toString());
         if(isInserted==true)
             Toast.makeText(requireActivity(),"Fan Tab Data saved",Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(requireActivity(),"Data not Inserted",Toast.LENGTH_LONG).show();
+            Toast.makeText(requireActivity(),"Data not Inserted",Toast.LENGTH_LONG).show();*/
 
+    }
+    public void onDestroy() {
+        super.onDestroy();
+        mFanTabFragmentPresenter.updateServiceConnectionStatus(getContext());
+        //getActivity().unbindService(fanTabDataServiceConnection);
     }
 }

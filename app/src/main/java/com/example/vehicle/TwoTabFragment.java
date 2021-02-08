@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
 
 public class TwoTabFragment extends Fragment {
-
 
     View myFragment;
     TabLayout tabLayout;
@@ -39,7 +37,6 @@ public class TwoTabFragment extends Fragment {
 
         setUpViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -60,10 +57,8 @@ public class TwoTabFragment extends Fragment {
 
     private void setUpViewPager(ViewPager viewPager) {
         PageAdapter adapter =new PageAdapter(getChildFragmentManager());
-
         adapter.addFragment(new FanTabFragment(),"Fan");
         adapter.addFragment(new SeatHeaterTabFragment(),"Seat");
-
         viewPager.setAdapter(adapter);
     }
 }

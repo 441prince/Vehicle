@@ -23,8 +23,8 @@ import com.example.vehicleservice.IMainDataInterface;
 public class MainActivityModelImpl  implements IMainActivityModel {
 
     IMainActivityPresenter mMainActivityPresenter;
-    protected IMainDataInterface mainDataInterface;
     ServiceConnection mainDataServiceConnection;
+    protected IMainDataInterface mainDataInterface;
     private DatabaseHelper databaseHelper;
     public int autoClickCount = 1, acClickCount = 1, leftSeatClickCount = 1, fanClickCount = 1, rightSeatClickCount = 1, frontDefrostClickCount = 1, rearDefrostClickCount = 1;
     public int dogModeClickCount = 1, campModeClickCount = 1, userModeClickCount = 1;
@@ -52,8 +52,6 @@ public class MainActivityModelImpl  implements IMainActivityModel {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 // TODO Auto-generated method stub
-
-
                 mainDataInterface = IMainDataInterface.Stub.asInterface((IBinder) service);
                 mMainActivityPresenter.notifyServiceConnectionStatus(1);
                 Log.d("IRemote", "Binding is done - Main Data Service connected");
@@ -70,7 +68,6 @@ public class MainActivityModelImpl  implements IMainActivityModel {
 
     @Override
     public void updateAutoButtonStatus(Context context) {
-
         try {
             if (mainDataInterface.autoButtonOn(autoClickCount) == 1) {
                 auto = "On";
@@ -151,7 +148,6 @@ public class MainActivityModelImpl  implements IMainActivityModel {
                 fan = "Closed";
                 mMainActivityPresenter.notifyFanButtonStatus(fanClickCount);
                 fanClickCount = 1;
-
             }
             Log.d("IRemote", "Binding - FanButton operation");
         }
@@ -195,17 +191,13 @@ public class MainActivityModelImpl  implements IMainActivityModel {
     public void updateFrontDefrostButtonStatus(Context context) {
         try {
             if (mainDataInterface.frontDefrostButtonOn(frontDefrostClickCount) == 1) {
-
                 front_defrost = "On";
                 mMainActivityPresenter.notifyFrontDefrostButtonStatus(frontDefrostClickCount);
                 frontDefrostClickCount++;
-
             } else if (mainDataInterface.frontDefrostButtonOff(frontDefrostClickCount) == 2) {
-
                 front_defrost = "Off";
                 mMainActivityPresenter.notifyFrontDefrostButtonStatus(frontDefrostClickCount);
                 frontDefrostClickCount = 1;
-
             }
         Log.d("IRemote", "Binding - frontDefrostButton operation");
         }
@@ -251,7 +243,6 @@ public class MainActivityModelImpl  implements IMainActivityModel {
         }
     }
 
-
     @Override
     public void updateDogModeButtonStatus() {
 
@@ -278,7 +269,6 @@ public class MainActivityModelImpl  implements IMainActivityModel {
 
     @Override
     public void updateCampModeButtonStatus() {
-
         try{
             if (mainDataInterface.campModeButtonOn(campModeClickCount) == 1) {
                 camp_mode = "Activated";
@@ -301,7 +291,6 @@ public class MainActivityModelImpl  implements IMainActivityModel {
 
     @Override
     public void updateUserModeButtonStatus() {
-
         try{
             if (mainDataInterface.userModeButtonOn(userModeClickCount) == 1) {
                 user_mode = "Activated";

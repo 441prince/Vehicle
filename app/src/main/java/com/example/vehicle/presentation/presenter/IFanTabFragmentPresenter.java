@@ -9,7 +9,6 @@ import android.content.Context;
 public interface IFanTabFragmentPresenter {
 
     void init(Context context);
-
     void updateFaceDirectionButtonStatus(Context context);
     void updateFeetDirectionButtonStatus(Context context);
     void updateFaceFeetDirectionButtonStatus(Context context);
@@ -23,7 +22,6 @@ public interface IFanTabFragmentPresenter {
     void updateServiceConnectionStatus(Context context);
     void updateDatabase(Context context);
 
-
     void notifyFaceDirectionButtonStatus(int num);
     void notifyFeetDirectionButtonStatus(int num);
     void notifyFaceFeetDirectionButtonStatus(int num);
@@ -36,4 +34,5 @@ public interface IFanTabFragmentPresenter {
     void notifyFanDecreaseSpeedStatus(String num);
     void notifyServiceConnectionStatus(int num);
     void updateFromDatabase(String num);
+
 }

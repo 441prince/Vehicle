@@ -2,7 +2,6 @@ package com.example.vehicle.presentation.presenter;
 
 import android.content.Context;
 
-
 /**
  * Created by Prince Joel
  */
@@ -10,7 +9,6 @@ import android.content.Context;
 public interface IMainActivityPresenter {
 
     void init(Context context);
-
     void updateAutoButtonStatus(Context context);
     void updateAcButtonStatus(Context context);
     void updateLeft_seatButtonStatus(Context context);
@@ -35,4 +33,5 @@ public interface IMainActivityPresenter {
     void notifyCampModeButtonStatus(int num);
     void notifyUserModeButtonStatus(int num);
     void notifyServiceConnectionStatus(int num);
+
 }

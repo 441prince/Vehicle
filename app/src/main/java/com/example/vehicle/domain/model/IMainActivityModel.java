@@ -6,10 +6,9 @@ import android.content.Context;
  * Created by Prince Joel
  */
 
-public interface IMainActivityModel extends IBaseModel{
+public interface IMainActivityModel {
 
     void init(Context context);
-
     void updateAutoButtonStatus(Context context);
     void updateAcButtonStatus(Context context);
     void updateLeft_seatButtonStatus(Context context);
@@ -22,4 +21,5 @@ public interface IMainActivityModel extends IBaseModel{
     void updateUserModeButtonStatus();
     void updateServiceConnectionStatus(Context context);
     void updateDatabase(Context context);
+
 }

@@ -1,7 +1,6 @@
 package com.example.vehicle.presentation.presenter;
 
 import android.content.Context;
-
 import com.example.vehicle.domain.model.FanTabFragmentModelImpl;
 import com.example.vehicle.domain.model.IFanTabFragmentModel;
 import com.example.vehicle.presentation.view.IFanTabFragmentView;
@@ -19,6 +18,10 @@ public class FanTabFragmentPresenterImpl implements IFanTabFragmentPresenter {
         mFanTabFragmentModel = new FanTabFragmentModelImpl(this);
     }
 
+    @Override
+    public void init(Context context) {
+        mFanTabFragmentModel.init(context);
+    }
 
     @Override
     public void updateFaceDirectionButtonStatus(Context context) {
@@ -139,11 +142,5 @@ public class FanTabFragmentPresenterImpl implements IFanTabFragmentPresenter {
     public void updateFromDatabase(String num) {
         mFanTabFragmentView.updateFromDatabase(num);
     }
-
-    @Override
-    public void init(Context context) {
-        mFanTabFragmentModel.init(context);
-    }
-
 
 }

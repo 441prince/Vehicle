@@ -16,7 +16,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         Toast toast= Toast.makeText(context, data, Toast.LENGTH_LONG);
         toast.show();
         toast.setGravity(Gravity.CENTER | Gravity.BOTTOM, 450, 100);
-
         Log.i("BR" ,"Data received:  " + data);
     }
 }

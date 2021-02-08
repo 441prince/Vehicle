@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
-
 /**
  * Database Created by Prince Joel
  */
@@ -130,13 +129,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    /*public Cursor getAllData(){
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res =db.rawQuery("select * from "+TABLE_NAME4,null);
-        return res;
-    }*/
-
     public Cursor getMainData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res =db.rawQuery("select * from "+TABLE_MAIN,null);
@@ -153,4 +145,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res =db.rawQuery("select * from "+TABLE_NAME2,null);
         return res;
     }
+
+    /*public Cursor getAllData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res =db.rawQuery("select * from "+TABLE_NAME4,null);
+        return res;
+    }*/
+
 }

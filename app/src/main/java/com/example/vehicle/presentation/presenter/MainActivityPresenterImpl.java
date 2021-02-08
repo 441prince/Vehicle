@@ -18,6 +18,10 @@ public class MainActivityPresenterImpl implements IMainActivityPresenter {
         mMainActivityModel = new MainActivityModelImpl(this);
     }
 
+    @Override
+    public void init(Context context) {
+        mMainActivityModel.init(context);
+    }
 
     @Override
     public void updateAutoButtonStatus(Context context) {
@@ -135,11 +139,5 @@ public class MainActivityPresenterImpl implements IMainActivityPresenter {
     public void notifyServiceConnectionStatus(int num) {
         mMainActivityView.notifyServiceConnectionStatus(num);
     }
-
-    @Override
-    public void init(Context context) {
-        mMainActivityModel.init(context);
-    }
-
 
 }

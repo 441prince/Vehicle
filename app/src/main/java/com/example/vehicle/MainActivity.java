@@ -34,10 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton dog, camp, user;
     private BatteryReceiver batteryReceiver;
     private IntentFilter mIntentFilter;
-    public String auto = "Off", ac = "Off", left_seat = "Off", fan = "Off", right_seat = "Off", front_defrost = "Off", rear_defrost = "Off", dog_mode = "Off", camp_mode = "Off", user_mode = "Off";
     private MyBroadcastReceiver MyReceiver;
-
-
     private IMainActivityPresenter mMainActivityPresenter;
 
     @Override
@@ -76,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         customSeekBar = (SeekBar) findViewById(R.id.customSeekBar);
         acTemperatureText = findViewById(R.id.acTemperatureText);
         batteryPercentage = findViewById(R.id.batteryPercentage);
-
         customSeekBar.setVisibility(View.GONE);
         acTemperatureText.setVisibility(View.GONE);
 
@@ -91,14 +87,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.rightSeatImageButton.setOnClickListener(this);
         this.frontDefrostImageButton.setOnClickListener(this);
         this.rearDefrostImageButton.setOnClickListener(this);
-        //this.carImageButton.setOnClickListener(this);
-
 
     }
 
     public void initObjects() {
 
-        //this.databaseHelper = new DatabaseHelper(this);
         this.userMode = new Dialog(this);
         mMainActivityPresenter = new MainActivityPresenterImpl(this);
         mMainActivityPresenter.init(this);
@@ -193,24 +186,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void notifyAutoButtonStatus(int num) {
         if (num == 1) {
-            auto = "On";
             autoImageButton.setImageResource(R.drawable.autoon);
             Toast.makeText(getApplicationContext(), "Auto On", Toast.LENGTH_SHORT).show();
         } else if (num == 2) {
-            auto = "Off";
             autoImageButton.setImageResource(R.drawable.autobutton);
-            Toast.makeText(this, "Auto" + auto, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Auto Off" , Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
     public void notifyAcButtonStatus(int num) {
         if (num == 1) {
-            ac = "On";
             acImageButton.setImageResource(R.drawable.acon);
             Toast.makeText(getApplicationContext(), "AC On", Toast.LENGTH_SHORT).show();
-
             customSeekBar.setVisibility(View.VISIBLE);
             acTemperatureText.setVisibility(View.GONE);
             customSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -235,86 +223,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             });
         } else if (num == 2) {
-            ac = "Off";
             acImageButton.setImageResource(R.drawable.ac);
             Toast.makeText(getApplicationContext(), "AC Off", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     @Override
     public void notifyLeft_seatButtonStatus(int num) {
         if (num == 1) {
-            left_seat = "Low Heat Mode On";
             leftSeatImageButton.setImageResource(R.drawable.leftlow);
             Toast.makeText(getApplicationContext(), "Low Heat Mode On", Toast.LENGTH_SHORT).show();
         } else if (num == 2) {
-            left_seat = "Medium Heat Mode On";
             leftSeatImageButton.setImageResource(R.drawable.leftmed);
             Toast.makeText(getApplicationContext(), "Medium Heat Mode On", Toast.LENGTH_SHORT).show();
         } else if (num == 3) {
-            left_seat = "High Heat Mode On";
             leftSeatImageButton.setImageResource(R.drawable.lefthigh);
             Toast.makeText(getApplicationContext(), "High Heat Mode On", Toast.LENGTH_SHORT).show();
         } else if (num == 4) {
-            left_seat = "Heat Mode Off";
             leftSeatImageButton.setImageResource(R.drawable.leftseat);
             Toast.makeText(getApplicationContext(), " Heat Mode Off", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
     public void notifyFanButtonStatus(int num) {
 
         if (num == 1) {
-            fan = "Opened";
             fanImageButton.animate().rotation(fanImageButton.getRotation() + 360).start();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.framelayout, new TwoTabFragment());
             ft.commit();
         } else if (num == 2) {
-            fan = "Closed";
             fanImageButton.animate().rotation(fanImageButton.getRotation() - 360).start();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.framelayout, new HomeFragment());
             ft.commit();
-
         }
-
     }
 
     @Override
     public void notifyRight_seatButtonStatus(int num) {
         if (num == 1) {
-            right_seat = "Low Heat Mode On";
             rightSeatImageButton.setImageResource(R.drawable.rightlow);
             Toast.makeText(getApplicationContext(), "Low Heat Mode On", Toast.LENGTH_SHORT).show();
         } else if (num == 2) {
-            right_seat = "Medium Heat Mode On";
             rightSeatImageButton.setImageResource(R.drawable.rightmed);
             Toast.makeText(getApplicationContext(), "Medium Heat Mode On", Toast.LENGTH_SHORT).show();
         } else if (num == 3) {
-            right_seat = "High Heat Mode On";
             rightSeatImageButton.setImageResource(R.drawable.righthigh);
             Toast.makeText(getApplicationContext(), "High Heat Mode On", Toast.LENGTH_SHORT).show();
         } else if (num == 4) {
-            right_seat = "Heat Mode Off";
             rightSeatImageButton.setImageResource(R.drawable.rightseat);
             Toast.makeText(getApplicationContext(), "Heat Mode Off", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
     public void notifyFrontDefrostButtonStatus(int num) {
         if (num == 1) {
-            front_defrost = "On";
             frontDefrostImageButton.setImageResource(R.drawable.defroston);
             Toast.makeText(getApplicationContext(), "Defrost On", Toast.LENGTH_SHORT).show();
         } else if (num == 2) {
-            front_defrost = "Off";
             frontDefrostImageButton.setImageResource(R.drawable.frontdefrost);
             Toast.makeText(getApplicationContext(), "Defrost Off", Toast.LENGTH_SHORT).show();
         }
@@ -323,12 +292,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void notifyRearDefrostButtonStatus(int num) {
         if (num == 1) {
-            rear_defrost = "On";
             rearDefrostImageButton.setImageResource(R.drawable.reardefroston);
             Toast.makeText(getApplicationContext(), "Rear Defrost On", Toast.LENGTH_SHORT).show();
         }
         if (num == 6) {
-            rear_defrost = "Off";
             rearDefrostImageButton.setImageResource(R.drawable.reardefrost);
             Toast.makeText(getApplicationContext(), "Rear Defrost Off", Toast.LENGTH_SHORT).show();
         }
@@ -338,13 +305,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void notifyDogModeButtonStatus(int num) {
 
         if (num == 1) {
-            dog_mode = "Activated";
-            camp_mode = "De-activated";
-            user_mode = "De-activated";
             carImageButton.setImageResource(R.drawable.dogon);
             Toast.makeText(getApplicationContext(), "Dog Mode is activated", Toast.LENGTH_SHORT).show();
         } else if (num == 2) {
-            dog_mode = "De-activated";
             carImageButton.setImageResource(R.drawable.car);
             Toast.makeText(getApplicationContext(), "Dog mode is De-activated", Toast.LENGTH_SHORT).show();
         }
@@ -355,13 +318,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void notifyCampModeButtonStatus(int num) {
         camp.setBackgroundColor(getResources().getColor(R.color.Blue));
         if (num == 1) {
-            camp_mode = "Activated";
-            dog_mode = "De-activated";
-            user_mode = "De-activated";
             carImageButton.setImageResource(R.drawable.campon);
             Toast.makeText(getApplicationContext(), "Camp Mode is activated", Toast.LENGTH_SHORT).show();
         } else if (num == 2) {
-            camp_mode = "De-activated";
             carImageButton.setImageResource(R.drawable.car);
             Toast.makeText(getApplicationContext(), "Camp mode is De-activated", Toast.LENGTH_SHORT).show();
         }
@@ -373,13 +332,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void notifyUserModeButtonStatus(int num) {
         user.setBackgroundColor(getResources().getColor(R.color.Blue));
         if (num == 1) {
-            user_mode = "Activated";
-            dog_mode = "De-activated";
-            camp_mode = "De-activated";
             carImageButton.setImageResource(R.drawable.useron);
             Toast.makeText(getApplicationContext(), "User Mode is activated", Toast.LENGTH_SHORT).show();
         } else if (num == 2) {
-            user_mode = "De-activated";
             carImageButton.setImageResource(R.drawable.car);
             Toast.makeText(getApplicationContext(), "User mode is De-activated", Toast.LENGTH_SHORT).show();
         }
@@ -396,7 +351,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(num==0){
             Toast.makeText(getApplicationContext(), "Main Data Service Disconnected", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
@@ -404,6 +358,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         registerReceiver(batteryReceiver, mIntentFilter);
     }
+
     @Override
     protected void onPause () {
         super.onPause();
@@ -413,7 +368,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onStop () {
         super.onStop();
-        //unregisterReceiver(MyReceiver);
         unregisterReceiver(batteryReceiver);
         mMainActivityPresenter.updateDatabase(this);
     }
@@ -422,8 +376,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         mMainActivityPresenter.updateServiceConnectionStatus(this);
-        //unbindService(mainDataServiceConnection);
     }
-
 
 }

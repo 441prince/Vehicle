@@ -22,8 +22,8 @@ import com.example.vehicleservice.IFanTabDataInterface;
 public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
 
     IFanTabFragmentPresenter mFanTabFragmentPresenter;
-    protected IFanTabDataInterface fanTabDataInterface;
     ServiceConnection fanTabDataServiceConnection;
+    protected IFanTabDataInterface fanTabDataInterface;
     private DatabaseHelper databaseHelper;
     public String ac_direction="Off",max_ac="Off",air_circulate="Off",bio_hazard="Off",rear_fan="Off", fan_speed;
     public String value;
@@ -47,20 +47,15 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
             Toast.makeText(context,"No data",Toast.LENGTH_SHORT).show();
         }
         else {
-            /*while (cursor.moveToNext()){
-               fanSpeedText.setText(cursor.getString(6));
-            }*/
             while (cursor.moveToNext()){
                 fan_speed=(cursor.getString(6));
                 mFanTabFragmentPresenter.updateFromDatabase(fan_speed);
             }
         }
 
-
          /**
         * Service
         */
-
 
         Log.d("Hmi", "init");
         fanTabDataServiceConnection = new ServiceConnection() {
@@ -94,20 +89,16 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
 
     @Override
     public void updateFaceDirectionButtonStatus(Context context) {
-
         try {
             if(fanTabDataInterface.faceDirectionButtonOn(faceDirectionClickCount)==1){
-                //getOnAcDirection();
-
+                ac_direction="To Face On";
                 feetDirectionClickCount=1;
                 faceFeetDirectionClickCount=1;
                 faceFeetWindShieldDirectionClickCount=1;
-
                 mFanTabFragmentPresenter.notifyFaceDirectionButtonStatus(faceDirectionClickCount);
-
                 faceDirectionClickCount++;
             }else if(fanTabDataInterface.faceDirectionButtonOff(faceDirectionClickCount)==2){
-                //getOffAcDirection();
+                ac_direction="To Face Off";
                 mFanTabFragmentPresenter.notifyFaceDirectionButtonStatus(faceDirectionClickCount);
                 faceDirectionClickCount=1;
             }
@@ -122,18 +113,14 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
     public void updateFeetDirectionButtonStatus(Context context) {
         try{
             if(fanTabDataInterface.feetDirectionButtonOn(feetDirectionClickCount)==1){
-                //getOnAcDirection();
-
+                ac_direction="To Feet On";
                 faceDirectionClickCount=1;
                 faceFeetDirectionClickCount=1;
                 faceFeetWindShieldDirectionClickCount=1;
-
                 mFanTabFragmentPresenter.notifyFeetDirectionButtonStatus(feetDirectionClickCount);
-
                 feetDirectionClickCount++;
             }else if(fanTabDataInterface.feetDirectionButtonOff(feetDirectionClickCount)==2){
-                //getOffAcDirection();
-
+                ac_direction="To Feet Off";
                 mFanTabFragmentPresenter.notifyFeetDirectionButtonStatus(feetDirectionClickCount);
                 feetDirectionClickCount=1;
             }
@@ -149,20 +136,15 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
     public void updateFaceFeetDirectionButtonStatus(Context context) {
         try{
             if(fanTabDataInterface.faceFeetDirectionButtonOn(faceFeetDirectionClickCount)==1){
-                //getOnAcDirection();
-
-
+                ac_direction="To Face and Feet On";
                 faceDirectionClickCount=1;
                 feetDirectionClickCount=1;
                 faceFeetWindShieldDirectionClickCount=1;
-
                 mFanTabFragmentPresenter.notifyFaceFeetDirectionButtonStatus(faceFeetDirectionClickCount);
-
                 faceFeetDirectionClickCount++;
             }else if(fanTabDataInterface.faceFeetDirectionButtonOff(faceFeetDirectionClickCount)==2){
-                //getOffAcDirection();
+                ac_direction="To Face and Feet Off";
                 mFanTabFragmentPresenter.notifyFaceFeetDirectionButtonStatus(faceFeetDirectionClickCount);
-
                 faceFeetDirectionClickCount=1;
             }
         }
@@ -177,18 +159,15 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
     public void updateFaceFeetWindShieldDirectionButtonStatus(Context context) {
         try{
             if(fanTabDataInterface.faceFeetWindShieldDirectionButtonOn(faceFeetWindShieldDirectionClickCount)==1){
-                //getOnAcDirection();
+                ac_direction="To Face,Feet and WindShield On";
                 faceDirectionClickCount=1;
                 feetDirectionClickCount=1;
                 faceFeetDirectionClickCount=1;
-
                 mFanTabFragmentPresenter.notifyFaceFeetWindShieldDirectionButtonStatus(faceFeetWindShieldDirectionClickCount);
-
                 faceFeetWindShieldDirectionClickCount++;
             }else if(fanTabDataInterface.faceFeetWindShieldDirectionButtonOff(faceFeetWindShieldDirectionClickCount)==2){
-                //getOffAcDirection();
+                ac_direction="To Face,Feet and WindShield Off";
                 mFanTabFragmentPresenter.notifyFaceFeetWindShieldDirectionButtonStatus(faceFeetWindShieldDirectionClickCount);
-
                 faceFeetWindShieldDirectionClickCount=1;
             }
         }
@@ -204,12 +183,10 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
         try{
             if(fanTabDataInterface.maxAcButtonOn(maxAcClickCount)==1){
                 max_ac="On";
-
                 mFanTabFragmentPresenter.notifyMaxAcButtonStatus(maxAcClickCount);
                 maxAcClickCount++;
             }else if(fanTabDataInterface.maxAcButtonOff(maxAcClickCount)==2){
                 max_ac="Off";
-
                 mFanTabFragmentPresenter.notifyMaxAcButtonStatus(maxAcClickCount);
                 maxAcClickCount=1;
             }
@@ -259,10 +236,8 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
         }
     }
 
-
     @Override
     public void updateRearFanButtonStatus(Context context) {
-
         try{
             if(fanTabDataInterface.rearFanButtonOn(rearFanClickCount)==1){
                 rear_fan="On";
@@ -283,7 +258,6 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
 
     @Override
     public void updateFanIncreaseSpeedStatus(Context context) {
-
         try{
             if(count<7){
                 count++;
@@ -301,7 +275,6 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
     }
     @Override
     public void updateFanDecreaseSpeedStatus(Context context) {
-
         try{
             if(count>0){
                 count--;}
@@ -316,30 +289,6 @@ public class FanTabFragmentModelImpl implements IFanTabFragmentModel {
             e.printStackTrace();
         }
     }
-
-
-    /*@Override
-    public void updateUserModeButtonStatus() {
-
-        try{
-            if (mainDataInterface.userModeButtonOn(userModeClickCount) == 1) {
-                user_mode = "Activated";
-                dog_mode = "De-activated";
-                camp_mode = "De-activated";
-                mMainActivityPresenter.notifyUserModeButtonStatus(userModeClickCount);
-                userModeClickCount++;
-            } else if (mainDataInterface.userModeButtonOff(userModeClickCount) == 2) {
-                user_mode = "De-activated";
-                mMainActivityPresenter.notifyUserModeButtonStatus(userModeClickCount);
-                userModeClickCount = 1;
-            }
-            Log.d("IRemote", "Binding - Add operation");
-        }
-        catch (RemoteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }*/
 
     @Override
     public void updateServiceConnectionStatus(Context context) {

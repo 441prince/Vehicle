@@ -6,10 +6,9 @@ import android.content.Context;
  * Created by Prince Joel
  */
 
-public interface IFanTabFragmentModel extends IBaseModel{
+public interface IFanTabFragmentModel {
 
     void init(Context context);
-
     void updateFaceDirectionButtonStatus(Context context);
     void updateFeetDirectionButtonStatus(Context context);
     void updateFaceFeetDirectionButtonStatus(Context context);
@@ -22,4 +21,5 @@ public interface IFanTabFragmentModel extends IBaseModel{
     void updateFanDecreaseSpeedStatus(Context context);
     void updateServiceConnectionStatus(Context context);
     void updateDatabase(Context context);
+
 }

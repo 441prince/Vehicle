@@ -58,9 +58,14 @@ public class MainActivityModelImpl  implements IMainActivityModel {
             }
         };
         if (mainDataInterface == null) {
+            //Intent serviceIntent = new Intent("service.MainData");
+            String pack = IMainDataInterface.class.getPackage().getName();
             Intent serviceIntent = new Intent();
             serviceIntent.setPackage(Constants.SERVICE_PACKAGE);
             serviceIntent.setAction(Constants.MAIN_SERVICE_PACKAGE_NAME);
+            /*serviceIntent.setPackage(pack);
+            Log.d("Hmi", "init binding : " + pack);*/
+            Log.d("Hmi", "init binding" + Constants.SERVICE_PACKAGE + "  " + Constants.MAIN_SERVICE_PACKAGE_NAME);
             // binding to remote service
             context.bindService(serviceIntent, mainDataServiceConnection, Service.BIND_AUTO_CREATE);
         }

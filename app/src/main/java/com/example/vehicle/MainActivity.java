@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("HMI MainActivity", "onCreate() called");
 
         batteryReceiver = new BatteryReceiver();
         mIntentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentFilter intentFilter = new IntentFilter("com.example.vehicleservice");
         if(intentFilter != null)
         {
+            Log.d("HMI MainActivity", "onCreate() called");
             registerReceiver(MyReceiver, intentFilter);
         }
     }
